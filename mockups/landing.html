@@ -8,186 +8,284 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800;900&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-  body { font-family: 'Geist', -apple-system, sans-serif; background: #fafafa; color: #0a0a0a; }
+  body { font-family: 'Geist', -apple-system, sans-serif; background: #f9fafb; color: #0a0a0a; }
   .mono { font-family: 'Geist Mono', monospace; }
-  .gradient-text { background: linear-gradient(135deg, #10b981 0%, #059669 50%, #047857 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
-  .hero-bg {
+  .bg-hero {
     background:
-      radial-gradient(ellipse 80% 50% at 50% 0%, rgba(16,185,129,0.10) 0%, transparent 50%),
-      radial-gradient(ellipse 60% 40% at 80% 20%, rgba(59,130,246,0.08) 0%, transparent 50%),
-      linear-gradient(180deg, #fafafa 0%, #ffffff 100%);
+      radial-gradient(ellipse 90% 60% at 50% 0%, rgba(16,185,129,0.18) 0%, rgba(16,185,129,0.04) 35%, transparent 70%),
+      radial-gradient(ellipse 70% 50% at 0% 40%, rgba(34,211,238,0.14) 0%, transparent 60%),
+      radial-gradient(ellipse 70% 50% at 100% 40%, rgba(59,130,246,0.10) 0%, transparent 60%),
+      linear-gradient(180deg, #f0fdfa 0%, #f9fafb 60%, #ffffff 100%);
   }
-  .grid-bg {
-    background-image:
-      linear-gradient(rgba(0,0,0,0.04) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(0,0,0,0.04) 1px, transparent 1px);
-    background-size: 56px 56px;
-  }
-  .card { background: white; border: 1px solid rgba(0,0,0,0.06); box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.02); }
-  .card-hover:hover { transform: translateY(-2px); box-shadow: 0 4px 20px rgba(0,0,0,0.06); }
-  .card-hover { transition: all 0.2s ease; }
-  .glow-btn { box-shadow: 0 10px 40px -10px rgba(16,185,129,0.5), inset 0 1px 0 rgba(255,255,255,0.2); }
+  .card { background: white; border: 1px solid rgba(0,0,0,0.06); box-shadow: 0 1px 3px rgba(0,0,0,0.04); border-radius: 16px; }
+  .card-hover { transition: all 0.25s ease; }
+  .card-hover:hover { transform: translateY(-3px); box-shadow: 0 12px 30px -10px rgba(0,0,0,0.1); }
+  .product-shadow { box-shadow: 0 40px 80px -20px rgba(16,185,129,0.2), 0 20px 40px -15px rgba(0,0,0,0.1); }
   @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
-  .fade-1 { animation: fadeUp 0.6s ease-out forwards; }
-  .fade-2 { animation: fadeUp 0.6s ease-out 0.1s forwards; opacity: 0; }
-  .fade-3 { animation: fadeUp 0.6s ease-out 0.2s forwards; opacity: 0; }
-  .fade-4 { animation: fadeUp 0.6s ease-out 0.3s forwards; opacity: 0; }
-  @keyframes pulse-dot { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+  .fade-1 { animation: fadeUp 0.7s ease-out forwards; }
+  .fade-2 { animation: fadeUp 0.7s ease-out 0.12s forwards; opacity: 0; }
+  .fade-3 { animation: fadeUp 0.7s ease-out 0.24s forwards; opacity: 0; }
+  .fade-4 { animation: fadeUp 0.8s ease-out 0.4s forwards; opacity: 0; }
+  @keyframes pulse-dot { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
   .pulse-dot { animation: pulse-dot 2s ease-in-out infinite; }
-  .chip { background: rgba(16,185,129,0.08); color: #047857; border: 1px solid rgba(16,185,129,0.2); }
+  .chip { background: rgba(16,185,129,0.08); color: #047857; border: 1px solid rgba(16,185,129,0.16); }
+  .nav-link { color: #525252; transition: color 0.15s ease; }
+  .nav-link:hover { color: #0a0a0a; }
+  .btn-primary {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    color: white;
+    box-shadow: 0 4px 12px -2px rgba(16,185,129,0.4);
+    transition: all 0.2s ease;
+  }
+  .btn-primary:hover { box-shadow: 0 6px 20px -4px rgba(16,185,129,0.5); transform: translateY(-1px); }
+  .dot { width: 6px; height: 6px; border-radius: 50%; display: inline-block; }
 </style>
 </head>
 <body class="antialiased">
 
 <!-- Nav -->
-<nav class="fixed top-0 left-0 right-0 z-50 backdrop-blur-xl bg-white/70 border-b border-black/5">
+<nav class="fixed top-0 left-0 right-0 z-50 backdrop-blur-xl bg-white/75 border-b border-black/5">
   <div class="max-w-7xl mx-auto flex items-center justify-between px-6 py-4">
     <div class="flex items-center gap-2.5">
-      <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-emerald-400 to-emerald-600 flex items-center justify-center shadow-sm">
-        <span class="text-white font-bold text-sm">S</span>
+      <div class="w-8 h-8 rounded-xl bg-gradient-to-br from-emerald-400 via-emerald-500 to-teal-600 flex items-center justify-center shadow-sm">
+        <span class="text-white font-bold text-sm tracking-tight">S</span>
       </div>
-      <span class="font-semibold text-lg tracking-tight">Stealth</span>
+      <span class="font-semibold text-[17px] tracking-tight">Stealth</span>
     </div>
-    <div class="hidden md:flex items-center gap-8 text-sm text-neutral-600">
-      <a href="#features" class="hover:text-black transition">Features</a>
-      <a href="#how" class="hover:text-black transition">How it works</a>
-      <a href="#pricing" class="hover:text-black transition">Pricing</a>
-      <a href="#" class="hover:text-black transition">Sign in</a>
-      <button class="bg-black text-white px-4 py-2 rounded-lg font-medium text-sm hover:bg-neutral-800 transition">Start free trial</button>
+    <div class="hidden md:flex items-center gap-8 text-sm">
+      <a href="#how" class="nav-link">How it works</a>
+      <a href="#features" class="nav-link">Features</a>
+      <a href="#pricing" class="nav-link">Pricing</a>
+      <a href="#" class="nav-link">Sign in</a>
+      <button class="btn-primary px-4 py-2 rounded-lg font-medium text-sm">Start free trial</button>
     </div>
   </div>
 </nav>
 
 <!-- Hero -->
-<section class="relative hero-bg pt-36 pb-28 px-6 overflow-hidden">
-  <div class="absolute inset-0 grid-bg opacity-60 pointer-events-none"></div>
+<section class="bg-hero pt-36 pb-12 px-6 relative overflow-hidden">
   <div class="max-w-5xl mx-auto text-center relative">
+
     <!-- Pill -->
     <div class="inline-flex items-center gap-2 px-3 py-1.5 mb-8 rounded-full chip text-xs font-medium fade-1">
       <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 pulse-dot"></span>
-      <span>AI-ranked properties · Built for STR investors</span>
+      <span>AI-ranked properties for STR investors</span>
     </div>
 
     <!-- Headline -->
-    <h1 class="text-5xl md:text-7xl font-bold tracking-tighter leading-[1.02] mb-6 fade-1">
-      Find your next Airbnb<br>
-      in <span class="gradient-text">90 seconds.</span>
+    <h1 class="text-5xl md:text-[80px] font-semibold tracking-[-0.04em] leading-[1.02] mb-6 fade-1">
+      Find your next<br>
+      Airbnb property.
     </h1>
 
     <!-- Sub -->
-    <p class="text-lg md:text-xl text-neutral-600 mb-10 max-w-2xl mx-auto leading-relaxed fade-2">
-      Tell us what you want. Our AI ranks every listing in your market
-      and gives you the 5 best properties to buy — with a 10-year profit projection for each.
+    <p class="text-lg md:text-xl text-neutral-500 mb-10 max-w-2xl mx-auto leading-relaxed fade-2">
+      AI ranks every listing in your market against your criteria.
+      Get the 5 best properties to buy — with a 10-year profit projection for each.
     </p>
 
-    <!-- Search bar -->
-    <div class="max-w-2xl mx-auto fade-3">
-      <div class="card rounded-2xl p-2 flex items-center gap-2 bg-white shadow-lg">
-        <div class="flex items-center gap-3 px-4 flex-1">
-          <svg class="w-5 h-5 text-neutral-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-          <input type="text" placeholder="Try: cabin in Gatlinburg under $500k" class="flex-1 bg-transparent outline-none text-black placeholder-neutral-400 py-3 text-base">
-        </div>
-        <button class="bg-emerald-500 hover:bg-emerald-600 text-white font-semibold px-6 py-3.5 rounded-xl transition glow-btn whitespace-nowrap">
-          Get my top 5 →
-        </button>
-      </div>
-      <p class="text-xs text-neutral-500 mt-3 flex items-center justify-center gap-4 flex-wrap">
-        <span class="flex items-center gap-1.5"><svg class="w-3.5 h-3.5 text-emerald-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg> 14-day free trial</span>
-        <span class="flex items-center gap-1.5"><svg class="w-3.5 h-3.5 text-emerald-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg> No credit card</span>
-        <span class="flex items-center gap-1.5"><svg class="w-3.5 h-3.5 text-emerald-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg> Cancel anytime</span>
-      </p>
+    <!-- CTA buttons -->
+    <div class="flex flex-col sm:flex-row items-center justify-center gap-3 fade-3">
+      <button class="btn-primary px-6 py-3.5 rounded-xl font-semibold text-base">
+        Start free trial →
+      </button>
+      <button class="bg-white border border-black/10 hover:bg-neutral-50 transition px-6 py-3.5 rounded-xl font-medium text-base text-neutral-700">
+        See how it works
+      </button>
     </div>
+    <p class="text-xs text-neutral-500 mt-4 fade-3">14 days free · No credit card</p>
+  </div>
+</section>
 
-    <!-- Product screenshot mock -->
-    <div class="mt-20 fade-4 max-w-5xl mx-auto">
-      <div class="card rounded-2xl overflow-hidden shadow-2xl">
-        <!-- Fake browser chrome -->
-        <div class="bg-neutral-100 border-b border-black/5 px-4 py-3 flex items-center gap-2">
-          <div class="flex gap-1.5">
-            <div class="w-3 h-3 rounded-full bg-red-400"></div>
-            <div class="w-3 h-3 rounded-full bg-yellow-400"></div>
-            <div class="w-3 h-3 rounded-full bg-green-400"></div>
-          </div>
-          <div class="flex-1 max-w-md mx-auto">
-            <div class="bg-white rounded-md px-3 py-1 text-xs text-neutral-500 text-center border border-black/5">stealth.app/search</div>
+<!-- Product preview — the centerpiece -->
+<section class="bg-hero pb-28 px-6">
+  <div class="max-w-6xl mx-auto fade-4">
+    <div class="product-shadow rounded-2xl overflow-hidden bg-white border border-black/5">
+      <!-- Browser chrome -->
+      <div class="bg-neutral-50 border-b border-black/5 px-5 py-3.5 flex items-center gap-3">
+        <div class="flex gap-1.5">
+          <div class="w-3 h-3 rounded-full bg-red-400"></div>
+          <div class="w-3 h-3 rounded-full bg-yellow-400"></div>
+          <div class="w-3 h-3 rounded-full bg-green-400"></div>
+        </div>
+        <div class="flex-1 max-w-md mx-auto">
+          <div class="bg-white rounded-md px-3 py-1 text-xs text-neutral-500 text-center border border-black/5 flex items-center justify-center gap-1.5">
+            <svg class="w-3 h-3 text-neutral-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"/></svg>
+            stealth.app/search
           </div>
         </div>
-        <!-- App content -->
-        <div class="bg-white p-8 grid md:grid-cols-3 gap-4">
-          <!-- Filter column -->
-          <div class="space-y-3">
-            <div class="text-xs font-semibold text-neutral-400 uppercase tracking-wider">Search criteria</div>
-            <div class="card rounded-lg p-3 text-sm">
-              <div class="text-neutral-500 text-xs mb-1">Market</div>
-              <div class="font-medium">Gatlinburg, TN</div>
+        <div class="text-xs text-neutral-400">2:34 PM</div>
+      </div>
+
+      <!-- App chrome: search bar + filter summary -->
+      <div class="border-b border-black/5 px-6 py-4 flex items-center gap-3 bg-white">
+        <div class="flex items-center gap-2 text-sm text-neutral-600 flex-1">
+          <svg class="w-4 h-4 text-neutral-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/></svg>
+          <span class="font-medium">Gatlinburg, TN</span>
+          <span class="text-neutral-300">·</span>
+          <span>$300k – $500k</span>
+          <span class="text-neutral-300">·</span>
+          <span>Cabin</span>
+          <span class="text-neutral-300">·</span>
+          <span>CoC ≥ 10%</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <button class="text-xs text-neutral-500 border border-black/10 px-2.5 py-1 rounded-md hover:bg-neutral-50">Refine</button>
+          <button class="text-xs text-white bg-neutral-900 px-2.5 py-1 rounded-md hover:bg-neutral-800">+ New search</button>
+        </div>
+      </div>
+
+      <!-- App body: 3-column layout -->
+      <div class="grid md:grid-cols-[240px_1fr_300px] bg-neutral-50">
+        <!-- Sidebar -->
+        <div class="border-r border-black/5 bg-white px-4 py-5 space-y-1 hidden md:block">
+          <div class="text-[11px] font-semibold text-neutral-400 uppercase tracking-wider mb-2 px-2">Searches</div>
+          <div class="px-3 py-2 rounded-lg bg-emerald-50 text-emerald-800 text-sm font-medium flex items-center gap-2">
+            <span class="dot bg-emerald-500"></span>
+            Gatlinburg cabins
+          </div>
+          <div class="px-3 py-2 rounded-lg text-neutral-600 text-sm flex items-center gap-2">
+            <span class="dot bg-neutral-300"></span>
+            Scottsdale condos
+          </div>
+          <div class="px-3 py-2 rounded-lg text-neutral-600 text-sm flex items-center gap-2">
+            <span class="dot bg-neutral-300"></span>
+            Destin beachfront
+          </div>
+          <button class="w-full text-left px-3 py-2 text-sm text-neutral-400 hover:text-neutral-700">+ New search</button>
+        </div>
+
+        <!-- Main results -->
+        <div class="p-6 space-y-3">
+          <div class="flex items-center justify-between mb-1">
+            <div>
+              <div class="text-sm text-neutral-500">Showing</div>
+              <h3 class="text-xl font-semibold tracking-tight">Top 5 properties</h3>
             </div>
-            <div class="card rounded-lg p-3 text-sm">
-              <div class="text-neutral-500 text-xs mb-1">Budget</div>
-              <div class="font-medium">$300k – $500k</div>
-            </div>
-            <div class="card rounded-lg p-3 text-sm">
-              <div class="text-neutral-500 text-xs mb-1">Target CoC</div>
-              <div class="font-medium">≥ 10%</div>
+            <div class="flex items-center gap-1.5 text-xs text-neutral-500 mono px-2.5 py-1.5 bg-white border border-black/5 rounded-md">
+              <span class="dot bg-emerald-500 pulse-dot"></span>
+              Live · Updated 2m ago
             </div>
           </div>
-          <!-- Results column -->
-          <div class="md:col-span-2 space-y-3">
-            <div class="flex items-center justify-between mb-2">
-              <div class="text-xs font-semibold text-neutral-400 uppercase tracking-wider">Top 5 ranked</div>
-              <div class="text-xs text-neutral-400 mono">ranked by 10-yr ROI</div>
+
+          <!-- Result 1 -->
+          <div class="card card-hover p-4 flex gap-4 cursor-pointer">
+            <div class="w-28 h-24 rounded-xl bg-gradient-to-br from-emerald-100 to-teal-100 flex-shrink-0 relative overflow-hidden">
+              <div class="absolute bottom-1.5 left-1.5 bg-black/70 text-white text-[10px] px-1.5 py-0.5 rounded">4 photos</div>
             </div>
-            <div class="card rounded-xl p-4 flex gap-4 card-hover cursor-pointer">
-              <div class="w-28 h-20 rounded-lg bg-gradient-to-br from-emerald-100 to-emerald-200 flex-shrink-0 flex items-center justify-center">
-                <span class="text-xs text-emerald-700 font-medium">Cabin</span>
-              </div>
-              <div class="flex-1 min-w-0">
-                <div class="flex items-start justify-between gap-3 mb-1">
-                  <div class="font-semibold truncate">1847 Mountain Loop Rd · Gatlinburg, TN</div>
-                  <div class="text-xs bg-emerald-500 text-white px-2 py-0.5 rounded-full font-semibold">#1 · 94/100</div>
+            <div class="flex-1 min-w-0">
+              <div class="flex items-start justify-between gap-3 mb-1">
+                <div>
+                  <div class="font-semibold text-[15px] truncate">1847 Mountain Loop Rd</div>
+                  <div class="text-xs text-neutral-500">Gatlinburg, TN 37738 · 3BR/2BA · 1,650 sqft</div>
                 </div>
-                <div class="text-xs text-neutral-500 mb-2">3BR/2BA · 1,650 sqft · No HOA</div>
-                <div class="flex gap-4 text-xs mono">
-                  <div><span class="text-neutral-400">Ask</span> <span class="font-semibold">$389k</span></div>
-                  <div><span class="text-neutral-400">Y1 Cash</span> <span class="font-semibold text-emerald-600">+$38,200</span></div>
-                  <div><span class="text-neutral-400">10yr ROI</span> <span class="font-semibold text-emerald-600">+312%</span></div>
-                </div>
+                <div class="text-xs bg-gradient-to-br from-emerald-500 to-emerald-600 text-white px-2 py-1 rounded-lg font-semibold shadow-sm whitespace-nowrap">#1 · 94</div>
               </div>
-            </div>
-            <div class="card rounded-xl p-4 flex gap-4 card-hover cursor-pointer">
-              <div class="w-28 h-20 rounded-lg bg-gradient-to-br from-sky-100 to-sky-200 flex-shrink-0 flex items-center justify-center">
-                <span class="text-xs text-sky-700 font-medium">Cabin</span>
-              </div>
-              <div class="flex-1 min-w-0">
-                <div class="flex items-start justify-between gap-3 mb-1">
-                  <div class="font-semibold truncate">632 Fox Trail Dr · Gatlinburg, TN</div>
-                  <div class="text-xs bg-emerald-400 text-white px-2 py-0.5 rounded-full font-semibold">#2 · 91/100</div>
+              <div class="grid grid-cols-3 gap-2 mt-3">
+                <div class="bg-neutral-50 rounded-lg px-2.5 py-1.5">
+                  <div class="text-[10px] text-neutral-400 uppercase tracking-wide">Ask</div>
+                  <div class="text-sm font-semibold mono">$389k</div>
                 </div>
-                <div class="text-xs text-neutral-500 mb-2">2BR/2BA · 1,200 sqft · HOA $85/mo</div>
-                <div class="flex gap-4 text-xs mono">
-                  <div><span class="text-neutral-400">Ask</span> <span class="font-semibold">$325k</span></div>
-                  <div><span class="text-neutral-400">Y1 Cash</span> <span class="font-semibold text-emerald-600">+$31,400</span></div>
-                  <div><span class="text-neutral-400">10yr ROI</span> <span class="font-semibold text-emerald-600">+278%</span></div>
+                <div class="bg-neutral-50 rounded-lg px-2.5 py-1.5">
+                  <div class="text-[10px] text-neutral-400 uppercase tracking-wide">Y1 Cash</div>
+                  <div class="text-sm font-semibold mono text-emerald-600">+$38.2k</div>
+                </div>
+                <div class="bg-neutral-50 rounded-lg px-2.5 py-1.5">
+                  <div class="text-[10px] text-neutral-400 uppercase tracking-wide">10yr ROI</div>
+                  <div class="text-sm font-semibold mono text-emerald-600">+312%</div>
                 </div>
               </div>
             </div>
-            <div class="card rounded-xl p-4 flex gap-4 card-hover cursor-pointer opacity-75">
-              <div class="w-28 h-20 rounded-lg bg-gradient-to-br from-amber-100 to-amber-200 flex-shrink-0 flex items-center justify-center">
-                <span class="text-xs text-amber-700 font-medium">Cabin</span>
-              </div>
-              <div class="flex-1 min-w-0">
-                <div class="flex items-start justify-between gap-3 mb-1">
-                  <div class="font-semibold truncate">221 Pine Ridge Way · Pigeon Forge, TN</div>
-                  <div class="text-xs bg-emerald-300 text-white px-2 py-0.5 rounded-full font-semibold">#3 · 87/100</div>
+          </div>
+
+          <!-- Result 2 -->
+          <div class="card card-hover p-4 flex gap-4 cursor-pointer">
+            <div class="w-28 h-24 rounded-xl bg-gradient-to-br from-sky-100 to-blue-100 flex-shrink-0 relative overflow-hidden">
+              <div class="absolute bottom-1.5 left-1.5 bg-black/70 text-white text-[10px] px-1.5 py-0.5 rounded">12 photos</div>
+            </div>
+            <div class="flex-1 min-w-0">
+              <div class="flex items-start justify-between gap-3 mb-1">
+                <div>
+                  <div class="font-semibold text-[15px] truncate">632 Fox Trail Dr</div>
+                  <div class="text-xs text-neutral-500">Gatlinburg, TN 37738 · 2BR/2BA · 1,200 sqft</div>
                 </div>
-                <div class="text-xs text-neutral-500 mb-2">3BR/3BA · 1,850 sqft · Regulation flag ⚠</div>
-                <div class="flex gap-4 text-xs mono">
-                  <div><span class="text-neutral-400">Ask</span> <span class="font-semibold">$445k</span></div>
-                  <div><span class="text-neutral-400">Y1 Cash</span> <span class="font-semibold text-emerald-600">+$29,800</span></div>
-                  <div><span class="text-neutral-400">10yr ROI</span> <span class="font-semibold text-emerald-600">+241%</span></div>
+                <div class="text-xs bg-gradient-to-br from-emerald-400 to-emerald-500 text-white px-2 py-1 rounded-lg font-semibold shadow-sm whitespace-nowrap">#2 · 91</div>
+              </div>
+              <div class="grid grid-cols-3 gap-2 mt-3">
+                <div class="bg-neutral-50 rounded-lg px-2.5 py-1.5">
+                  <div class="text-[10px] text-neutral-400 uppercase tracking-wide">Ask</div>
+                  <div class="text-sm font-semibold mono">$325k</div>
+                </div>
+                <div class="bg-neutral-50 rounded-lg px-2.5 py-1.5">
+                  <div class="text-[10px] text-neutral-400 uppercase tracking-wide">Y1 Cash</div>
+                  <div class="text-sm font-semibold mono text-emerald-600">+$31.4k</div>
+                </div>
+                <div class="bg-neutral-50 rounded-lg px-2.5 py-1.5">
+                  <div class="text-[10px] text-neutral-400 uppercase tracking-wide">10yr ROI</div>
+                  <div class="text-sm font-semibold mono text-emerald-600">+278%</div>
                 </div>
               </div>
             </div>
-            <div class="text-xs text-neutral-400 text-center py-2">+ 2 more · Expand to see full ranked list</div>
+          </div>
+
+          <!-- Result 3 -->
+          <div class="card card-hover p-4 flex gap-4 cursor-pointer">
+            <div class="w-28 h-24 rounded-xl bg-gradient-to-br from-amber-100 to-orange-100 flex-shrink-0 relative overflow-hidden">
+              <div class="absolute bottom-1.5 left-1.5 bg-black/70 text-white text-[10px] px-1.5 py-0.5 rounded">8 photos</div>
+              <div class="absolute top-1.5 right-1.5 bg-amber-500 text-white text-[10px] px-1.5 py-0.5 rounded font-medium">⚠ Regulation</div>
+            </div>
+            <div class="flex-1 min-w-0">
+              <div class="flex items-start justify-between gap-3 mb-1">
+                <div>
+                  <div class="font-semibold text-[15px] truncate">221 Pine Ridge Way</div>
+                  <div class="text-xs text-neutral-500">Pigeon Forge, TN 37863 · 3BR/3BA · 1,850 sqft</div>
+                </div>
+                <div class="text-xs bg-gradient-to-br from-emerald-300 to-emerald-400 text-white px-2 py-1 rounded-lg font-semibold shadow-sm whitespace-nowrap">#3 · 87</div>
+              </div>
+              <div class="grid grid-cols-3 gap-2 mt-3">
+                <div class="bg-neutral-50 rounded-lg px-2.5 py-1.5">
+                  <div class="text-[10px] text-neutral-400 uppercase tracking-wide">Ask</div>
+                  <div class="text-sm font-semibold mono">$445k</div>
+                </div>
+                <div class="bg-neutral-50 rounded-lg px-2.5 py-1.5">
+                  <div class="text-[10px] text-neutral-400 uppercase tracking-wide">Y1 Cash</div>
+                  <div class="text-sm font-semibold mono text-emerald-600">+$29.8k</div>
+                </div>
+                <div class="bg-neutral-50 rounded-lg px-2.5 py-1.5">
+                  <div class="text-[10px] text-neutral-400 uppercase tracking-wide">10yr ROI</div>
+                  <div class="text-sm font-semibold mono text-emerald-600">+241%</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="text-center text-xs text-neutral-400 pt-3">+ 2 more properties · Click to expand full ranked list</div>
+        </div>
+
+        <!-- Right rail: AI summary -->
+        <div class="border-l border-black/5 bg-white px-5 py-5 hidden md:block">
+          <div class="flex items-center gap-2 mb-4">
+            <div class="w-6 h-6 rounded-md bg-gradient-to-br from-emerald-400 to-teal-500 flex items-center justify-center">
+              <svg class="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v2.07a7 7 0 014.93 4.93H18a1 1 0 110 2h-2.07a7 7 0 01-4.93 4.93V18a1 1 0 11-2 0v-2.07a7 7 0 01-4.93-4.93H2a1 1 0 110-2h2.07A7 7 0 019 5.07V3a1 1 0 011-1z"/></svg>
+            </div>
+            <div>
+              <div class="text-sm font-semibold">AI Summary</div>
+              <div class="text-[10px] text-neutral-400">Best picks reasoning</div>
+            </div>
+          </div>
+          <div class="space-y-3">
+            <div class="bg-emerald-50 rounded-xl p-3 border border-emerald-100">
+              <div class="text-[10px] font-semibold text-emerald-700 uppercase tracking-wide mb-1">Why #1 ranks highest</div>
+              <div class="text-xs text-neutral-700 leading-relaxed">No HOA, proximity to Parkway, proven Airbnb comps earning $52k–$68k/yr nearby. Solid cabin at below-comp price.</div>
+            </div>
+            <div class="bg-neutral-50 rounded-xl p-3 border border-black/5">
+              <div class="text-[10px] font-semibold text-neutral-500 uppercase tracking-wide mb-1">Market signal</div>
+              <div class="text-xs text-neutral-600 leading-relaxed">Gatlinburg STR demand up 12% YoY. Occupancy tracking at 72% — strong.</div>
+            </div>
+            <div class="bg-amber-50 rounded-xl p-3 border border-amber-100">
+              <div class="text-[10px] font-semibold text-amber-700 uppercase tracking-wide mb-1">Flagged</div>
+              <div class="text-xs text-neutral-700 leading-relaxed">#3 has potential zoning review pending in Pigeon Forge. Verify before offer.</div>
+            </div>
           </div>
         </div>
       </div>
@@ -198,91 +296,95 @@
 <!-- How it works -->
 <section id="how" class="max-w-6xl mx-auto px-6 py-24">
   <div class="text-center mb-16">
-    <h2 class="text-4xl md:text-5xl font-bold tracking-tight mb-4">From "I want to invest" to "here's what to buy"</h2>
-    <p class="text-neutral-600 max-w-xl mx-auto">Three steps. Ninety seconds. Zero spreadsheets.</p>
+    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full chip text-xs font-medium mb-4">How it works</div>
+    <h2 class="text-4xl md:text-5xl font-semibold tracking-[-0.03em] mb-4">Three steps. Ninety seconds.</h2>
+    <p class="text-neutral-500 max-w-xl mx-auto">From "I want to invest" to "here's what to buy" — zero spreadsheets.</p>
   </div>
-  <div class="grid md:grid-cols-3 gap-6">
-    <div class="card card-hover rounded-2xl p-8">
-      <div class="w-10 h-10 rounded-xl bg-emerald-100 flex items-center justify-center mb-4 mono text-emerald-700 font-bold">01</div>
-      <h3 class="text-xl font-semibold mb-2">Tell us what you want</h3>
-      <p class="text-sm text-neutral-600 leading-relaxed">Market, budget, property type, target return. Four questions, thirty seconds.</p>
+  <div class="grid md:grid-cols-3 gap-5">
+    <div class="card card-hover p-8">
+      <div class="w-10 h-10 rounded-xl bg-emerald-100 flex items-center justify-center mb-5 mono text-emerald-700 font-bold">01</div>
+      <h3 class="text-xl font-semibold mb-2 tracking-tight">Tell us what you want</h3>
+      <p class="text-sm text-neutral-500 leading-relaxed">Market, budget, property type, target return. Four questions — 30 seconds.</p>
     </div>
-    <div class="card card-hover rounded-2xl p-8">
-      <div class="w-10 h-10 rounded-xl bg-sky-100 flex items-center justify-center mb-4 mono text-sky-700 font-bold">02</div>
-      <h3 class="text-xl font-semibold mb-2">AI scans the market</h3>
-      <p class="text-sm text-neutral-600 leading-relaxed">We scan every listing in your target market, run a 5-factor analysis, and score each property.</p>
+    <div class="card card-hover p-8">
+      <div class="w-10 h-10 rounded-xl bg-sky-100 flex items-center justify-center mb-5 mono text-sky-700 font-bold">02</div>
+      <h3 class="text-xl font-semibold mb-2 tracking-tight">AI scans the market</h3>
+      <p class="text-sm text-neutral-500 leading-relaxed">Every listing analyzed on 5 factors — budget fit, comps, area, operating costs, long-term profit.</p>
     </div>
-    <div class="card card-hover rounded-2xl p-8">
-      <div class="w-10 h-10 rounded-xl bg-purple-100 flex items-center justify-center mb-4 mono text-purple-700 font-bold">03</div>
-      <h3 class="text-xl font-semibold mb-2">Get your top 5</h3>
-      <p class="text-sm text-neutral-600 leading-relaxed">Five properties ranked by 10-year ROI, with full profit projections, comps, and red-flag analysis.</p>
+    <div class="card card-hover p-8">
+      <div class="w-10 h-10 rounded-xl bg-purple-100 flex items-center justify-center mb-5 mono text-purple-700 font-bold">03</div>
+      <h3 class="text-xl font-semibold mb-2 tracking-tight">Get your top 5</h3>
+      <p class="text-sm text-neutral-500 leading-relaxed">Ranked by 10-year ROI, with full profit projections, comps, and red-flag analysis.</p>
     </div>
   </div>
 </section>
 
 <!-- Features -->
-<section id="features" class="max-w-6xl mx-auto px-6 py-24">
+<section id="features" class="max-w-6xl mx-auto px-6 py-24 border-t border-black/5">
   <div class="text-center mb-16">
-    <h2 class="text-4xl md:text-5xl font-bold tracking-tight mb-4">Built for decisions, not dashboards.</h2>
-    <p class="text-neutral-600">Everything you need to pick your next property — nothing you don't.</p>
+    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full chip text-xs font-medium mb-4">Features</div>
+    <h2 class="text-4xl md:text-5xl font-semibold tracking-[-0.03em] mb-4">Built for decisions,<br>not dashboards.</h2>
+    <p class="text-neutral-500">Everything you need to pick your next property — nothing you don't.</p>
   </div>
-  <div class="grid md:grid-cols-3 gap-6">
-    <div class="card card-hover rounded-2xl p-7">
+  <div class="grid md:grid-cols-3 gap-5">
+    <div class="card card-hover p-7">
       <div class="w-11 h-11 rounded-xl bg-emerald-100 flex items-center justify-center mb-4">
         <svg class="w-5 h-5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
       </div>
-      <h3 class="font-semibold text-lg mb-2">AI-ranked top 5</h3>
-      <p class="text-sm text-neutral-600">No scrolling 200 listings. Our AI ranks every property on 5 factors and gives you the best matches.</p>
+      <h3 class="font-semibold text-lg mb-2 tracking-tight">AI-ranked top 5</h3>
+      <p class="text-sm text-neutral-500 leading-relaxed">No scrolling 200 listings. AI ranks every property on 5 factors and surfaces only the best.</p>
     </div>
-    <div class="card card-hover rounded-2xl p-7">
+    <div class="card card-hover p-7">
       <div class="w-11 h-11 rounded-xl bg-sky-100 flex items-center justify-center mb-4">
         <svg class="w-5 h-5 text-sky-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
       </div>
-      <h3 class="font-semibold text-lg mb-2">10-year ROI projection</h3>
-      <p class="text-sm text-neutral-600">See year-by-year net income, appreciation, and refi opportunities. Not just month-1 estimates.</p>
+      <h3 class="font-semibold text-lg mb-2 tracking-tight">10-year ROI projection</h3>
+      <p class="text-sm text-neutral-500 leading-relaxed">Year-by-year net income, appreciation, refi opportunities — not just month-1 estimates.</p>
     </div>
-    <div class="card card-hover rounded-2xl p-7">
+    <div class="card card-hover p-7">
       <div class="w-11 h-11 rounded-xl bg-purple-100 flex items-center justify-center mb-4">
         <svg class="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3v18h18M7 14l4-4 4 4 5-5"/></svg>
       </div>
-      <h3 class="font-semibold text-lg mb-2">Real comparable data</h3>
-      <p class="text-sm text-neutral-600">Graphs of nearby Airbnbs — their actual revenue, occupancy, and nightly rates. Real benchmarks, not guesses.</p>
+      <h3 class="font-semibold text-lg mb-2 tracking-tight">Real comparable data</h3>
+      <p class="text-sm text-neutral-500 leading-relaxed">Graphs of nearby Airbnbs — actual revenue, occupancy, and nightly rates. Real benchmarks.</p>
     </div>
-    <div class="card card-hover rounded-2xl p-7">
+    <div class="card card-hover p-7">
       <div class="w-11 h-11 rounded-xl bg-amber-100 flex items-center justify-center mb-4">
         <svg class="w-5 h-5 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
       </div>
-      <h3 class="font-semibold text-lg mb-2">Regulation intelligence</h3>
-      <p class="text-sm text-neutral-600">AI checks city ordinances, HOA restrictions, and pending bans — so you don't buy a property you can't STR.</p>
+      <h3 class="font-semibold text-lg mb-2 tracking-tight">Regulation intelligence</h3>
+      <p class="text-sm text-neutral-500 leading-relaxed">City ordinances, HOA restrictions, pending bans — AI flags what breaks your deal.</p>
     </div>
-    <div class="card card-hover rounded-2xl p-7">
+    <div class="card card-hover p-7">
       <div class="w-11 h-11 rounded-xl bg-rose-100 flex items-center justify-center mb-4">
         <svg class="w-5 h-5 text-rose-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
       </div>
-      <h3 class="font-semibold text-lg mb-2">Real-time market data</h3>
-      <p class="text-sm text-neutral-600">Live occupancy %, ADR, and revenue trends — refreshed daily. No outdated quarterly reports.</p>
+      <h3 class="font-semibold text-lg mb-2 tracking-tight">Real-time market data</h3>
+      <p class="text-sm text-neutral-500 leading-relaxed">Live occupancy, ADR, and revenue trends — refreshed daily. No stale quarterly reports.</p>
     </div>
-    <div class="card card-hover rounded-2xl p-7">
+    <div class="card card-hover p-7">
       <div class="w-11 h-11 rounded-xl bg-emerald-100 flex items-center justify-center mb-4">
         <svg class="w-5 h-5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
       </div>
-      <h3 class="font-semibold text-lg mb-2">Export for your realtor</h3>
-      <p class="text-sm text-neutral-600">One-click PDF with the full analysis — send to your agent, lender, or partner. Zero spreadsheet work.</p>
+      <h3 class="font-semibold text-lg mb-2 tracking-tight">Share with your realtor</h3>
+      <p class="text-sm text-neutral-500 leading-relaxed">One-click PDF with the full analysis — send to your agent, lender, or partner.</p>
     </div>
   </div>
 </section>
 
 <!-- Pricing -->
-<section id="pricing" class="max-w-5xl mx-auto px-6 py-24">
+<section id="pricing" class="max-w-5xl mx-auto px-6 py-24 border-t border-black/5">
   <div class="text-center mb-16">
-    <h2 class="text-4xl md:text-5xl font-bold tracking-tight mb-4">Simple pricing. No nonsense.</h2>
-    <p class="text-neutral-600">Cancel anytime. Keep your exports forever.</p>
+    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full chip text-xs font-medium mb-4">Pricing</div>
+    <h2 class="text-4xl md:text-5xl font-semibold tracking-[-0.03em] mb-4">Simple. No nonsense.</h2>
+    <p class="text-neutral-500">Cancel anytime. Keep your exports forever.</p>
   </div>
-  <div class="grid md:grid-cols-2 gap-6 max-w-3xl mx-auto">
-    <div class="card rounded-2xl p-8">
+  <div class="grid md:grid-cols-2 gap-5 max-w-3xl mx-auto">
+    <!-- Starter -->
+    <div class="card p-8">
       <div class="text-sm font-semibold text-neutral-500 uppercase tracking-wider mb-2">Starter</div>
       <div class="flex items-baseline gap-1 mb-1">
-        <div class="text-5xl font-bold tracking-tighter">$39</div>
+        <div class="text-5xl font-semibold tracking-tighter">$39</div>
         <div class="text-neutral-500">/month</div>
       </div>
       <p class="text-sm text-neutral-500 mb-6">Find your first property</p>
@@ -294,13 +396,15 @@
         <li class="flex items-start gap-2 text-neutral-400"><span class="mt-0.5">—</span> Deal alerts</li>
         <li class="flex items-start gap-2 text-neutral-400"><span class="mt-0.5">—</span> Unlimited searches</li>
       </ul>
-      <button class="w-full bg-white border-2 border-black text-black font-semibold py-3 rounded-xl hover:bg-black hover:text-white transition">Start free trial</button>
+      <button class="w-full bg-white border border-black/15 hover:bg-neutral-50 text-black font-semibold py-3 rounded-xl transition">Start free trial</button>
     </div>
-    <div class="relative rounded-2xl p-8 bg-gradient-to-br from-emerald-500 to-emerald-600 text-white shadow-2xl">
-      <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-white text-emerald-600 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Most popular</div>
+
+    <!-- Pro -->
+    <div class="relative rounded-2xl p-8 text-white shadow-xl" style="background: linear-gradient(135deg, #10b981 0%, #0d9488 50%, #0f766e 100%);">
+      <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-white text-emerald-600 text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider">Most popular</div>
       <div class="text-sm font-semibold text-emerald-100 uppercase tracking-wider mb-2">Pro</div>
       <div class="flex items-baseline gap-1 mb-1">
-        <div class="text-5xl font-bold tracking-tighter">$99</div>
+        <div class="text-5xl font-semibold tracking-tighter">$99</div>
         <div class="text-emerald-100">/month</div>
       </div>
       <p class="text-sm text-emerald-100 mb-6">Serious investors + growing portfolios</p>
@@ -312,24 +416,21 @@
         <li class="flex items-start gap-2"><span class="mt-0.5">✓</span> Regulation intelligence</li>
         <li class="flex items-start gap-2"><span class="mt-0.5">✓</span> Priority AI responses</li>
       </ul>
-      <button class="w-full bg-white text-emerald-600 font-semibold py-3 rounded-xl hover:bg-emerald-50 transition">Start free trial</button>
+      <button class="w-full bg-white text-emerald-700 font-semibold py-3 rounded-xl hover:bg-emerald-50 transition">Start free trial</button>
     </div>
   </div>
 </section>
 
 <!-- Final CTA -->
 <section class="max-w-4xl mx-auto px-6 py-24">
-  <div class="relative rounded-3xl p-14 text-center overflow-hidden" style="background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);">
-    <div class="absolute inset-0" style="background-image: radial-gradient(ellipse 60% 80% at 50% 50%, rgba(16,185,129,0.15) 0%, transparent 50%);"></div>
+  <div class="relative rounded-3xl p-14 text-center overflow-hidden" style="background: linear-gradient(135deg, #0a0a0a 0%, #171717 100%);">
+    <div class="absolute inset-0" style="background: radial-gradient(ellipse 70% 90% at 50% 50%, rgba(16,185,129,0.2) 0%, transparent 55%);"></div>
     <div class="relative">
-      <h2 class="text-4xl md:text-6xl font-bold tracking-tighter text-white mb-4">
-        Stop guessing.<br>
-        <span class="gradient-text">Start buying.</span>
-      </h2>
-      <p class="text-neutral-400 mb-10 text-lg max-w-xl mx-auto">
-        20 hours of research compressed into 90 seconds. Your first AI-ranked properties are seconds away.
+      <h2 class="text-4xl md:text-6xl font-semibold tracking-[-0.03em] text-white mb-4">Stop guessing.</h2>
+      <p class="text-neutral-400 mb-10 text-lg max-w-xl mx-auto leading-relaxed">
+        Your next Airbnb is 90 seconds away. Let AI do 20 hours of research.
       </p>
-      <button class="bg-emerald-500 hover:bg-emerald-400 text-black font-semibold px-8 py-4 rounded-xl text-lg transition glow-btn">
+      <button class="btn-primary px-8 py-4 rounded-xl text-base font-semibold">
         Get my top 5 properties →
       </button>
       <p class="text-xs text-neutral-500 mt-4">14 days free · No card required · Cancel anytime</p>
@@ -341,14 +442,14 @@
 <footer class="border-t border-black/5 py-10 px-6 bg-white">
   <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between text-sm text-neutral-500 gap-4">
     <div class="flex items-center gap-2">
-      <div class="w-6 h-6 rounded bg-gradient-to-br from-emerald-400 to-emerald-600"></div>
+      <div class="w-6 h-6 rounded bg-gradient-to-br from-emerald-400 via-emerald-500 to-teal-600"></div>
       <span>© 2026 Stealth</span>
     </div>
     <div class="flex gap-6">
-      <a href="#" class="hover:text-black">Privacy</a>
-      <a href="#" class="hover:text-black">Terms</a>
-      <a href="#" class="hover:text-black">Contact</a>
-      <a href="#" class="hover:text-black">Twitter</a>
+      <a href="#" class="hover:text-black transition">Privacy</a>
+      <a href="#" class="hover:text-black transition">Terms</a>
+      <a href="#" class="hover:text-black transition">Contact</a>
+      <a href="#" class="hover:text-black transition">Twitter</a>
     </div>
   </div>
 </footer>
