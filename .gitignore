@@ -1,0 +1,17 @@
+.DS_Store
+node_modules/
+.env
+.env.*
+!.env.example
+.next/
+.vercel/
+dist/
+build/
+*.log
+.turbo/
+coverage/
+.vscode/
+.idea/
+*.p12
+*.mobileprovision
+*.cer
