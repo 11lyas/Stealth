@@ -32,7 +32,6 @@
   .fade-2 { animation: fadeUp 0.6s ease-out 0.1s forwards; opacity: 0; }
   .fade-3 { animation: fadeUp 0.6s ease-out 0.2s forwards; opacity: 0; }
   .fade-4 { animation: fadeUp 0.6s ease-out 0.3s forwards; opacity: 0; }
-  .fade-5 { animation: fadeUp 0.6s ease-out 0.4s forwards; opacity: 0; }
   @keyframes pulse-dot { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
   .pulse-dot { animation: pulse-dot 2s ease-in-out infinite; }
   .chip { background: rgba(16,185,129,0.08); color: #047857; border: 1px solid rgba(16,185,129,0.2); }
@@ -51,7 +50,7 @@
     </div>
     <div class="hidden md:flex items-center gap-8 text-sm text-neutral-600">
       <a href="#features" class="hover:text-black transition">Features</a>
-      <a href="#compare" class="hover:text-black transition">vs AirDNA</a>
+      <a href="#how" class="hover:text-black transition">How it works</a>
       <a href="#pricing" class="hover:text-black transition">Pricing</a>
       <a href="#" class="hover:text-black transition">Sign in</a>
       <button class="bg-black text-white px-4 py-2 rounded-lg font-medium text-sm hover:bg-neutral-800 transition">Start free trial</button>
@@ -66,7 +65,7 @@
     <!-- Pill -->
     <div class="inline-flex items-center gap-2 px-3 py-1.5 mb-8 rounded-full chip text-xs font-medium fade-1">
       <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 pulse-dot"></span>
-      <span>Live in 50 US markets · 4,200+ new investors onboarded</span>
+      <span>AI-ranked properties · Built for STR investors</span>
     </div>
 
     <!-- Headline -->
@@ -77,8 +76,8 @@
 
     <!-- Sub -->
     <p class="text-lg md:text-xl text-neutral-600 mb-10 max-w-2xl mx-auto leading-relaxed fade-2">
-      AI-ranked properties with 10-year profit projections, real-time market data,
-      and comp analysis — so you never buy a bad deal again.
+      Tell us what you want. Our AI ranks every listing in your market
+      and gives you the 5 best properties to buy — with a 10-year profit projection for each.
     </p>
 
     <!-- Search bar -->
@@ -137,7 +136,6 @@
               <div class="text-xs font-semibold text-neutral-400 uppercase tracking-wider">Top 5 ranked</div>
               <div class="text-xs text-neutral-400 mono">ranked by 10-yr ROI</div>
             </div>
-            <!-- Result card 1 -->
             <div class="card rounded-xl p-4 flex gap-4 card-hover cursor-pointer">
               <div class="w-28 h-20 rounded-lg bg-gradient-to-br from-emerald-100 to-emerald-200 flex-shrink-0 flex items-center justify-center">
                 <span class="text-xs text-emerald-700 font-medium">Cabin</span>
@@ -155,7 +153,6 @@
                 </div>
               </div>
             </div>
-            <!-- Result card 2 -->
             <div class="card rounded-xl p-4 flex gap-4 card-hover cursor-pointer">
               <div class="w-28 h-20 rounded-lg bg-gradient-to-br from-sky-100 to-sky-200 flex-shrink-0 flex items-center justify-center">
                 <span class="text-xs text-sky-700 font-medium">Cabin</span>
@@ -173,7 +170,6 @@
                 </div>
               </div>
             </div>
-            <!-- Result card 3 -->
             <div class="card rounded-xl p-4 flex gap-4 card-hover cursor-pointer opacity-75">
               <div class="w-28 h-20 rounded-lg bg-gradient-to-br from-amber-100 to-amber-200 flex-shrink-0 flex items-center justify-center">
                 <span class="text-xs text-amber-700 font-medium">Cabin</span>
@@ -199,69 +195,33 @@
   </div>
 </section>
 
-<!-- Trust bar -->
-<section class="border-y border-black/5 bg-white py-8 px-6">
-  <div class="max-w-6xl mx-auto">
-    <p class="text-xs uppercase tracking-widest text-neutral-400 mb-4 text-center">Trusted by STR investors from</p>
-    <div class="flex flex-wrap items-center justify-center gap-12 text-sm font-bold text-neutral-400">
-      <span>BIGGERPOCKETS</span>
-      <span>STR RON</span>
-      <span>ROBUILT</span>
-      <span>ROB ABASOLO</span>
-      <span>r/AIRBNB_HOSTS</span>
-    </div>
-  </div>
-</section>
-
-<!-- Problem/Solution -->
-<section id="features" class="max-w-6xl mx-auto px-6 py-24">
+<!-- How it works -->
+<section id="how" class="max-w-6xl mx-auto px-6 py-24">
   <div class="text-center mb-16">
-    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full chip text-xs font-medium mb-4">
-      The problem with AirDNA
-    </div>
-    <h2 class="text-4xl md:text-5xl font-bold tracking-tight mb-4">AirDNA gives you data.<br>We tell you what to buy.</h2>
-    <p class="text-neutral-600 max-w-xl mx-auto">Data dashboards make you work harder. AI that reasons makes you work smarter.</p>
+    <h2 class="text-4xl md:text-5xl font-bold tracking-tight mb-4">From "I want to invest" to "here's what to buy"</h2>
+    <p class="text-neutral-600 max-w-xl mx-auto">Three steps. Ninety seconds. Zero spreadsheets.</p>
   </div>
-  <div class="grid md:grid-cols-2 gap-6">
-    <!-- AirDNA column -->
-    <div class="card rounded-2xl p-8 opacity-80">
-      <div class="flex items-center gap-2 mb-6">
-        <div class="w-8 h-8 rounded-lg bg-neutral-200 flex items-center justify-center">
-          <span class="text-neutral-500 text-xs font-bold">A</span>
-        </div>
-        <div class="font-semibold text-neutral-700">AirDNA</div>
-      </div>
-      <ul class="space-y-3 text-sm text-neutral-600">
-        <li class="flex items-start gap-2.5"><span class="text-red-500 font-bold mt-0.5">✕</span> Enter an address, stare at graphs</li>
-        <li class="flex items-start gap-2.5"><span class="text-red-500 font-bold mt-0.5">✕</span> Built for pros — overwhelming for beginners</li>
-        <li class="flex items-start gap-2.5"><span class="text-red-500 font-bold mt-0.5">✕</span> $99–$299/mo just for the data</li>
-        <li class="flex items-start gap-2.5"><span class="text-red-500 font-bold mt-0.5">✕</span> No property discovery — you find them first</li>
-        <li class="flex items-start gap-2.5"><span class="text-red-500 font-bold mt-0.5">✕</span> Calculator, not AI — no reasoning</li>
-        <li class="flex items-start gap-2.5"><span class="text-red-500 font-bold mt-0.5">✕</span> 2016 UI</li>
-      </ul>
+  <div class="grid md:grid-cols-3 gap-6">
+    <div class="card card-hover rounded-2xl p-8">
+      <div class="w-10 h-10 rounded-xl bg-emerald-100 flex items-center justify-center mb-4 mono text-emerald-700 font-bold">01</div>
+      <h3 class="text-xl font-semibold mb-2">Tell us what you want</h3>
+      <p class="text-sm text-neutral-600 leading-relaxed">Market, budget, property type, target return. Four questions, thirty seconds.</p>
     </div>
-    <!-- Stealth column -->
-    <div class="rounded-2xl p-8 bg-gradient-to-br from-emerald-50 to-white border-2 border-emerald-200">
-      <div class="flex items-center gap-2 mb-6">
-        <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-emerald-400 to-emerald-600 flex items-center justify-center shadow-sm">
-          <span class="text-white text-xs font-bold">S</span>
-        </div>
-        <div class="font-semibold">Stealth</div>
-      </div>
-      <ul class="space-y-3 text-sm text-neutral-700">
-        <li class="flex items-start gap-2.5"><span class="text-emerald-600 font-bold mt-0.5">✓</span> Tell us what you want → get 5 ranked buys</li>
-        <li class="flex items-start gap-2.5"><span class="text-emerald-600 font-bold mt-0.5">✓</span> Built for first-time + growing investors</li>
-        <li class="flex items-start gap-2.5"><span class="text-emerald-600 font-bold mt-0.5">✓</span> $39–$99/mo, AI decisions included</li>
-        <li class="flex items-start gap-2.5"><span class="text-emerald-600 font-bold mt-0.5">✓</span> We scan Zillow + Redfin + Realtor for you</li>
-        <li class="flex items-start gap-2.5"><span class="text-emerald-600 font-bold mt-0.5">✓</span> Actual reasoning: "buy this first, here's why"</li>
-        <li class="flex items-start gap-2.5"><span class="text-emerald-600 font-bold mt-0.5">✓</span> 10-year ROI + regulation + comp graphs</li>
-      </ul>
+    <div class="card card-hover rounded-2xl p-8">
+      <div class="w-10 h-10 rounded-xl bg-sky-100 flex items-center justify-center mb-4 mono text-sky-700 font-bold">02</div>
+      <h3 class="text-xl font-semibold mb-2">AI scans the market</h3>
+      <p class="text-sm text-neutral-600 leading-relaxed">We scan every listing in your target market, run a 5-factor analysis, and score each property.</p>
+    </div>
+    <div class="card card-hover rounded-2xl p-8">
+      <div class="w-10 h-10 rounded-xl bg-purple-100 flex items-center justify-center mb-4 mono text-purple-700 font-bold">03</div>
+      <h3 class="text-xl font-semibold mb-2">Get your top 5</h3>
+      <p class="text-sm text-neutral-600 leading-relaxed">Five properties ranked by 10-year ROI, with full profit projections, comps, and red-flag analysis.</p>
     </div>
   </div>
 </section>
 
-<!-- Feature grid -->
-<section class="max-w-6xl mx-auto px-6 py-24">
+<!-- Features -->
+<section id="features" class="max-w-6xl mx-auto px-6 py-24">
   <div class="text-center mb-16">
     <h2 class="text-4xl md:text-5xl font-bold tracking-tight mb-4">Built for decisions, not dashboards.</h2>
     <p class="text-neutral-600">Everything you need to pick your next property — nothing you don't.</p>
@@ -286,7 +246,7 @@
         <svg class="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3v18h18M7 14l4-4 4 4 5-5"/></svg>
       </div>
       <h3 class="font-semibold text-lg mb-2">Real comparable data</h3>
-      <p class="text-sm text-neutral-600">Graphs of 5-10 nearby Airbnbs — their actual revenue, occupancy, and nightly rates. Real benchmarks.</p>
+      <p class="text-sm text-neutral-600">Graphs of nearby Airbnbs — their actual revenue, occupancy, and nightly rates. Real benchmarks, not guesses.</p>
     </div>
     <div class="card card-hover rounded-2xl p-7">
       <div class="w-11 h-11 rounded-xl bg-amber-100 flex items-center justify-center mb-4">
@@ -308,26 +268,6 @@
       </div>
       <h3 class="font-semibold text-lg mb-2">Export for your realtor</h3>
       <p class="text-sm text-neutral-600">One-click PDF with the full analysis — send to your agent, lender, or partner. Zero spreadsheet work.</p>
-    </div>
-  </div>
-</section>
-
-<!-- Testimonial -->
-<section class="max-w-4xl mx-auto px-6 py-24">
-  <div class="card rounded-3xl p-10 text-center">
-    <div class="flex justify-center mb-6">
-      <div class="flex -space-x-2">
-        <div class="w-10 h-10 rounded-full bg-gradient-to-br from-orange-300 to-orange-400 border-2 border-white"></div>
-        <div class="w-10 h-10 rounded-full bg-gradient-to-br from-emerald-300 to-emerald-400 border-2 border-white"></div>
-        <div class="w-10 h-10 rounded-full bg-gradient-to-br from-sky-300 to-sky-400 border-2 border-white"></div>
-        <div class="w-10 h-10 rounded-full bg-gradient-to-br from-purple-300 to-purple-400 border-2 border-white"></div>
-      </div>
-    </div>
-    <blockquote class="text-2xl md:text-3xl font-medium tracking-tight leading-snug mb-6">
-      "Cancelled AirDNA and Mashvisor. Found my second cabin in 2 days — <span class="gradient-text">projected $41k Y1 cash flow.</span>"
-    </blockquote>
-    <div class="text-sm text-neutral-600">
-      <span class="font-semibold text-black">Marcus R.</span> · 3-listing host · Gatlinburg, TN
     </div>
   </div>
 </section>
@@ -387,7 +327,7 @@
         <span class="gradient-text">Start buying.</span>
       </h2>
       <p class="text-neutral-400 mb-10 text-lg max-w-xl mx-auto">
-        20 hours of research in 90 seconds. Your first AI-ranked picks are 60 seconds away.
+        20 hours of research compressed into 90 seconds. Your first AI-ranked properties are seconds away.
       </p>
       <button class="bg-emerald-500 hover:bg-emerald-400 text-black font-semibold px-8 py-4 rounded-xl text-lg transition glow-btn">
         Get my top 5 properties →
