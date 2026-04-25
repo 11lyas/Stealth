@@ -1,6 +1,6 @@
-# PRD — Vesta · AI Rental Property Comping
+# PRD — Vesta · LTR → STR Conversion Platform
 
-**Status:** Scoped v0.8 · Quality threshold + freshness guarantee + regulation strategy + alerts in v1
+**Status:** Scoped v1.0 · MAJOR PIVOT — positioned for existing landlords converting to STR, not first-time buyers
 **Working name:** Vesta (locked)
 **Platform:** Web SaaS (iOS app planned for v3+)
 **Target ship:** 5 weeks to first paying customer
@@ -9,43 +9,50 @@
 
 ## 1. One-liner
 
-**"Know every number before you buy."**
+**"Should you convert your rental to an Airbnb? Vesta tells you with real data — and helps you run it after."**
 
-AI comps any STR or Airbnb property — comps, 10-year cash flow, regulation risk, projected ROI — with confidence intervals, sources cited, and zero financial advice claims. Built for short-term rentals first (Airbnb, VRBO), expanding to long-term rentals next. **Single property in, full analysis out — no curated lists, no force-ranked filler.**
+Vesta is the platform for long-term rental landlords who are sitting on a property and want to know if converting to a short-term rental (Airbnb, VRBO) would make them more money. We provide the conversion decision (backed by real comp data + 10-year projections + regulation risk) AND the operational systems to set up and track the property once they pull the trigger.
+
+**Single property in. Decision out. Setup + tracking included.**
 
 ## 2. The bottleneck
 
-**Aspiring and growing rental investors don't have a research assistant.**
+**Long-term rental landlords have no good way to evaluate the STR conversion question.**
 
-They burn 2–6 months manually:
-- Scrolling Zillow/Redfin at night
-- Plugging addresses into static calculators
-- Modeling cash flow in spreadsheets
-- Still making decisions on $300k+ purchases with incomplete data
+50M+ LTR landlords in the US. Many own properties in markets where STR could 2-3x their gross income. But the conversion question is paralyzing:
 
-Existing tools (AirDNA, Mashvisor, BiggerPockets calculator) give analytics on properties YOU find — they don't find for you, don't reason, and don't show their sources.
+- Will my specific property actually earn what AirDNA says it will?
+- What are setup costs (furnishing, photos, listing optimization, compliance)?
+- What's the regulation risk in my city — could it get banned?
+- How do I actually run the operation day-to-day after I switch?
+- How do I price it, manage guests, handle turnovers, track performance?
 
-**Our wedge:** AI synthesizes multi-source data into a clear analysis with citations, confidence intervals, and red flags. Not a stock-tipper. A research assistant.
+Existing tools answer **none** of this end-to-end. AirDNA + Mashvisor give raw data but not the conversion decision. Hospitable + Hostaway help operate STRs but only AFTER the conversion. Nobody bridges the gap between "I own a long-term rental" and "I'm running a profitable Airbnb."
+
+**Our wedge:** the only tool built specifically for the LTR → STR conversion journey. Decision + setup + tracking, all backed by real comp data, in one place.
 
 ## 3. Target user
 
 | Attribute | Detail |
 |---|---|
-| **Primary persona** | First-time buyer — $50k–$200k saved, researching 3–6 months |
-| **Secondary persona** | Growing investor — owns 1–3 rentals, hunting #2/#3 |
-| **Age** | 30–55 |
-| **HHI** | $120k+ |
-| **Geography** | US launch (FL, TN, NC, SC, AZ, CO, TX) |
-| **Pain** | Decision paralysis from 20 browser tabs and incomplete data |
+| **Primary persona** | LTR landlord with 1–5 doors, sitting on at least one property in a viable STR market, considering conversion |
+| **Secondary persona** | New LTR investor planning to acquire properties they'll convert to STR (the "house hack flip-to-Airbnb" play) |
+| **Tertiary persona** | Property managers running other people's LTRs who want to upsell conversion services |
+| **Age** | 35–60 |
+| **HHI** | $100k+ |
+| **Geography** | US launch — focus on tourist-adjacent markets where conversion ROI is highest (FL, TN, NC, SC, AZ, CO, TX, OR vacation regions) |
+| **Pain** | Sitting on $200-800/mo of margin upside they can't unlock because they're afraid to pull the trigger |
 
 ## 4. Core value prop
 
-**"AI-organized research with sources and confidence intervals — not a tipster."**
+**"Your rental, but as an Airbnb — should you, and how?"**
 
-Three honest promises:
-1. **Time saved** — replace 20+ hours/month of manual research
-2. **Better decisions** — AI synthesizes signals no spreadsheet can (seasonality, regulation, long-term profitability) with stated confidence
-3. **Trustworthy output** — every number cited, every projection ranged, every uncertainty surfaced
+Three concrete promises:
+1. **Conversion clarity** — show the landlord with real numbers whether their specific property would earn more as an STR (projected revenue, breakeven, regulation risk, all sourced and confidence-ranged)
+2. **Setup roadmap** — if they decide to convert, give them the exact playbook (furnishing budget, photographer, listing copy, dynamic pricing setup, compliance checklist)
+3. **Operational tracking** — once live, track real performance vs. projection. Flag underperformance, alert on regulation changes, surface optimization opportunities
+
+**The full LTR → STR journey, end-to-end. Not just "will it work" — also "how to do it" and "how it's actually doing."**
 
 ## 4.5. UX principles (non-negotiable)
 
@@ -127,32 +134,64 @@ Every output the user sees has these properties:
 
 ## 7. Iteration 1 scope (web v1)
 
+Three pillars: **Conversion Analysis** + **Setup Roadmap** + **Performance Tracking** (the last one stubbed in v1, fleshed out in v1.5).
+
+### 7.1 Conversion Analysis (the wedge)
+
 | Component | Details |
 |---|---|
-| **Free tier — 1 free PDF report** | No signup. Type address → instant 1-pager with confidence-scored analysis. Captures emails, builds trust. |
-| **4-stage onboarding prompt** | Aspiring / New / Growing / Scaling. Tailors UX. |
-| **Search form** | Market, budget, property type, target cash-on-cash return |
-| **Single-property analysis** | Address in → full report out. No curated lists. If user runs a market search, returns ALL properties that clear quality threshold (≥8% CoC, comps verifiable, no red-flag regs). 0 if none qualify. No filler. |
-| **5-factor scoring** | (1) Budget fit, (2) Comp price validation, (3) Area demand+regulation, (4) Operating costs, (5) Long-term profit. Score 0-100 per property. |
-| **Property result card** | Photos, price, 10-yr projection w/ confidence bands, AI reasoning, red flags, source citations |
-| **Saved searches + weekly email digest** | User saves "cabins under $500k in Gatlinburg" → weekly email of new matches. Brings users back day 7 even without push alerts. |
-| **Real-time market data panel** | Live occupancy, ADR, revenue trends — sourced + timestamped |
-| **Comparable listings graphs** | 5–10 nearby Airbnbs — with footnotes "based on N verified calendars" |
-| **Price vs comp graph** | Asking price vs recent sales overlay |
-| **10-year ROI projection** | Year-by-year with confidence ranges. Cumulative return with assumptions exposed. |
-| **Export + share** | PDF report (full citations + disclaimers), shareable link |
-| **Billing** | Stripe — $39 Starter, $99 Pro, 14-day trial, 30-day money-back guarantee |
+| **Free tier — 1 free conversion report** | No signup. Paste address → instant 1-pager: "Your LTR earns $X. As STR, projected $Y (range $Y-low to $Y-high). Conversion verdict + key risks." |
+| **Property entry** | Paste address. AI pulls property characteristics from RentCast. User confirms or adjusts. |
+| **Current LTR baseline** | What is the property earning today? (User inputs current rent, or we estimate via RentCast LTR comps.) |
+| **STR projection** | Projected gross + net STR revenue, occupancy, ADR — based on 5-10 verified comps within 1.5mi. Confidence-ranged. |
+| **Side-by-side verdict** | "LTR: $24k/yr net. STR projection: $48k/yr net (range $38k-$58k). Conversion adds ~$24k/yr if execution is average." |
+| **Setup cost estimate** | Furnishing ($8-15k typical), photographer ($500-1k), listing optimization, dynamic pricing tool subscription, additional insurance |
+| **Breakeven timeline** | Months to recoup setup costs at projected occupancy |
+| **Regulation risk score** | Hybrid (top 50 markets curated, long-tail AI-grounded). With source link. |
+| **Red flags** | Seasonality concerns, comp thinness, regulation flags, HOA restrictions |
+| **AI reasoning** | "Why we project this revenue" + sources cited |
+| **Export PDF** | Branded analysis to share with partner, accountant, or just save |
+
+### 7.2 Setup Roadmap (post-decision)
+
+| Component | Details |
+|---|---|
+| **Conversion checklist** | Auto-generated, customized to property: furnishing list with budget, photographer recommendation in their city, listing title/description AI-drafted, pricing strategy (dynamic vs flat), compliance checks (city license, insurance, taxes) |
+| **Vendor recommendations** | Cleaners, photographers, dynamic pricing tools (PriceLabs, Wheelhouse), local STR-friendly insurance brokers — all in their market |
+| **Listing copy + photo guidance** | AI-drafted listing title, description, amenity list. Photo composition guidance per room. |
+| **Compliance walkthrough** | What licenses/permits needed in their city. Direct links to forms. |
+| **First-30-days operating playbook** | What to do day 1, week 1, month 1. Pricing adjustments, review responses, common pitfalls. |
+
+### 7.3 Performance Tracking (stubbed in v1, full in v1.5)
+
+| Component | Details |
+|---|---|
+| **Property profile** | User saves their converted property to dashboard |
+| **Manual stats input (v1)** | User can enter monthly revenue, expenses, bookings — basic vs-projection tracking |
+| **Auto-pull from Airbnb (v1.5)** | Connect Airbnb account → automatic performance data |
+| **Vs projection alerts** | "Your March revenue is 18% below projection — here's likely why" |
+| **Market drift alerts** | "Comps in your market shifted — your projected ADR is now $X (was $Y)" |
+| **Regulation alerts** | "Your city updated STR ordinance on [date] — new compliance step required" |
+
+### 7.4 Foundational features
+
+| Component | Details |
+|---|---|
+| **Saved properties + weekly email digest** | User saves their property. Weekly email: comp shifts, regulation changes, performance notes |
+| **Real-time market data panel** | Live occupancy, ADR, revenue trends in their market — sourced + timestamped |
+| **Comparable listings graphs** | 5-10 nearby Airbnbs — with footnotes "based on N verified calendars" |
+| **Billing** | Stripe — $39 Starter (1 property), $99 Pro (up to 5 properties), $249 Plus (unlimited + team). 14-day trial, 30-day money-back guarantee |
 
 ## 8. Pricing (hardened against concern #4)
 
-**No more "unlimited" — replaced with transparent caps.**
+**Per-property pricing, not per-search.** Aligns with our model — users own properties they want to convert + track.
 
-| Tier | Price | Searches | Other |
+| Tier | Price | Properties tracked | Includes |
 |---|---|---|---|
-| **Free** | $0 | 1 PDF report (1 address) | No login required, just email |
-| **Starter** | $39/mo | 10 searches/mo | Top 5 per search, basic features |
-| **Pro** | $99/mo | **200 searches/mo** ("fair use") | Full ranked list, alerts, advanced viz, priority |
-| **Plus (v1.5)** | $249/mo | 1000 searches/mo | Team seats, API, bulk ops |
+| **Free** | $0 | 0 (1 free analysis) | One conversion report PDF, no login |
+| **Starter** | $39/mo | 1 property | Conversion analysis + setup roadmap + manual tracking |
+| **Pro** | $99/mo | Up to 5 properties | Auto-pull from Airbnb, vs-projection alerts, regulation alerts, full setup recommendations |
+| **Plus (v1.5)** | $249/mo | Unlimited + team seats | Property managers, multi-portfolio tracking, API |
 
 - **30-day money-back guarantee** (not just 14-day trial)
 - Cache layer: same address within 7 days = no charge
