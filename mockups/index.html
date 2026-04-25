@@ -14,7 +14,6 @@
     --bg-warm: #f5f1ea;
     --ink: #0a0a0a;
     --ink-soft: #525252;
-    --ink-muted: #737373;
     --line: rgba(0,0,0,0.08);
     --accent: #d97706;
     --accent-light: #f59e0b;
@@ -34,24 +33,43 @@
   .card-hover { transition: all 0.25s ease; cursor: pointer; }
   .card-hover:hover { transform: translateY(-2px); box-shadow: 0 12px 30px -10px rgba(0,0,0,0.08); }
   .product-shadow { box-shadow: 0 50px 100px -25px rgba(217,119,6,0.18), 0 25px 50px -15px rgba(0,0,0,0.10); }
-  .btn-primary {
-    background: var(--ink);
-    color: white;
-    transition: all 0.2s ease;
-  }
+  .btn-primary { background: var(--ink); color: white; transition: all 0.2s ease; }
   .btn-primary:hover { background: #1c1917; transform: translateY(-1px); box-shadow: 0 8px 24px -8px rgba(0,0,0,0.25); }
-  .btn-accent {
-    background: linear-gradient(135deg, var(--accent-light) 0%, var(--accent) 100%);
-    color: white;
-    box-shadow: 0 4px 16px -4px rgba(217,119,6,0.4);
-    transition: all 0.2s ease;
-  }
+  .btn-accent { background: linear-gradient(135deg, var(--accent-light) 0%, var(--accent) 100%); color: white; box-shadow: 0 4px 16px -4px rgba(217,119,6,0.4); transition: all 0.2s ease; }
   .btn-accent:hover { box-shadow: 0 8px 24px -4px rgba(217,119,6,0.5); transform: translateY(-1px); }
+
+  /* Reveal animations */
   @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes slideRight { from { opacity: 0; transform: translateX(-20px); } to { opacity: 1; transform: translateX(0); } }
+  @keyframes scaleIn { from { opacity: 0; transform: scale(0.92); } to { opacity: 1; transform: scale(1); } }
   .fade-1 { animation: fadeUp 0.7s ease-out forwards; }
   .fade-2 { animation: fadeUp 0.7s ease-out 0.15s forwards; opacity: 0; }
   .fade-3 { animation: fadeUp 0.7s ease-out 0.3s forwards; opacity: 0; }
   .fade-4 { animation: fadeUp 0.9s ease-out 0.6s forwards; opacity: 0; }
+
+  /* Demo animation states */
+  .reveal { opacity: 0; transform: translateY(16px); transition: opacity 0.5s ease, transform 0.5s ease; }
+  .reveal.show { opacity: 1; transform: translateY(0); }
+  .scale-in { opacity: 0; transform: scale(0.92); transition: opacity 0.5s ease, transform 0.5s ease; }
+  .scale-in.show { opacity: 1; transform: scale(1); }
+
+  /* Typing cursor */
+  .cursor { display: inline-block; width: 2px; height: 18px; background: var(--accent); animation: blink 0.9s infinite; vertical-align: middle; margin-left: 2px; }
+  @keyframes blink { 0%, 49% { opacity: 1; } 50%, 100% { opacity: 0; } }
+
+  /* AI thinking spinner */
+  .spinner { width: 14px; height: 14px; border: 2px solid rgba(217,119,6,0.2); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.8s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* Bar fill animation */
+  .bar-track { background: rgba(0,0,0,0.06); border-radius: 4px; overflow: hidden; height: 6px; }
+  .bar-fill { height: 100%; background: linear-gradient(90deg, var(--accent-light), var(--accent)); border-radius: 4px; width: 0; transition: width 1.4s cubic-bezier(0.65, 0, 0.35, 1); }
+
+  /* Score progress ring */
+  .ring-bg { fill: transparent; stroke: rgba(255,255,255,0.2); stroke-width: 6; }
+  .ring-fill { fill: transparent; stroke: white; stroke-width: 6; stroke-linecap: round; stroke-dasharray: 226; stroke-dashoffset: 226; transition: stroke-dashoffset 1.6s cubic-bezier(0.65, 0, 0.35, 1); transform: rotate(-90deg); transform-origin: center; }
+
   @keyframes pulse-ring {
     0%, 100% { box-shadow: 0 0 0 0 rgba(217,119,6,0.5); }
     50% { box-shadow: 0 0 0 16px rgba(217,119,6,0); }
@@ -59,6 +77,15 @@
   .pulse-ring { animation: pulse-ring 2.4s ease-in-out infinite; }
   .chip { background: var(--accent-bg); color: var(--accent-dark); border: 1px solid rgba(217,119,6,0.18); }
   .accent-text { color: var(--accent-dark); }
+
+  /* FAQ accordion */
+  .faq-item { border-bottom: 1px solid var(--line); }
+  .faq-q { display: flex; justify-content: space-between; align-items: center; padding: 24px 0; cursor: pointer; transition: opacity 0.2s; }
+  .faq-q:hover { opacity: 0.7; }
+  .faq-icon { transition: transform 0.3s; flex-shrink: 0; }
+  .faq-item.open .faq-icon { transform: rotate(45deg); }
+  .faq-a { max-height: 0; overflow: hidden; transition: max-height 0.4s ease, padding 0.4s ease; }
+  .faq-item.open .faq-a { max-height: 400px; padding-bottom: 24px; }
 </style>
 </head>
 <body class="antialiased">
@@ -68,52 +95,51 @@
   <div class="max-w-6xl mx-auto flex items-center justify-between px-6 py-4">
     <div class="flex items-center gap-2.5">
       <svg width="32" height="32" viewBox="0 0 56 56" fill="none">
-        <defs>
-          <linearGradient id="logo-gradient" x1="0" y1="0" x2="56" y2="56">
-            <stop offset="0%" stop-color="#f59e0b"/>
-            <stop offset="50%" stop-color="#d97706"/>
-            <stop offset="100%" stop-color="#b45309"/>
-          </linearGradient>
-        </defs>
-        <rect width="56" height="56" rx="14" fill="url(#logo-gradient)"/>
+        <defs><linearGradient id="logo-grad" x1="0" y1="0" x2="56" y2="56"><stop offset="0%" stop-color="#f59e0b"/><stop offset="50%" stop-color="#d97706"/><stop offset="100%" stop-color="#b45309"/></linearGradient></defs>
+        <rect width="56" height="56" rx="14" fill="url(#logo-grad)"/>
         <circle cx="28" cy="14" r="3" fill="white"/>
         <path d="M14 42 L28 22 L42 42" stroke="white" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
       </svg>
       <span class="font-semibold text-[18px] tracking-tight">Vesta</span>
     </div>
-    <button class="btn-primary px-4 py-2 rounded-lg font-medium text-sm">Try it free</button>
+    <div class="hidden md:flex items-center gap-8 text-sm text-neutral-600">
+      <a href="#how" class="hover:text-black transition">How it works</a>
+      <a href="#pricing" class="hover:text-black transition">Pricing</a>
+      <a href="#faq" class="hover:text-black transition">FAQ</a>
+      <button class="btn-primary px-4 py-2 rounded-lg font-medium text-sm">Try it free</button>
+    </div>
   </div>
 </nav>
 
 <!-- HERO -->
 <section class="bg-hero pt-40 pb-20 px-6">
   <div class="max-w-4xl mx-auto text-center">
-
     <h1 class="text-6xl md:text-[100px] tracking-[-0.025em] leading-[0.95] mb-8 fade-1">
-      <span class="serif italic">Know</span> every number<br>
-      before you buy.
+      <span class="serif italic">Know</span> every number<br>before you buy.
     </h1>
-
     <p class="text-xl md:text-2xl text-neutral-500 mb-10 leading-relaxed fade-2 max-w-2xl mx-auto">
       AI analyzes any rental property. <span class="text-neutral-700 font-medium">90 seconds.</span>
     </p>
-
     <div class="max-w-xl mx-auto fade-3">
       <div class="card p-2 flex items-center gap-2 bg-white shadow-lg">
         <input type="text" placeholder="Paste any address — get a free analysis" class="flex-1 bg-transparent outline-none text-base px-4 py-3.5 placeholder-neutral-400 font-medium">
-        <button class="btn-accent font-semibold px-6 py-3.5 rounded-xl whitespace-nowrap">
-          Analyze →
-        </button>
+        <button class="btn-accent font-semibold px-6 py-3.5 rounded-xl whitespace-nowrap">Analyze →</button>
       </div>
       <p class="text-xs text-neutral-500 mt-3">Free PDF report · No signup · No credit card</p>
     </div>
   </div>
 </section>
 
-<!-- PRODUCT -->
-<section class="bg-hero pb-32 px-6">
+<!-- ANIMATED DEMO — fires when scrolled into view -->
+<section id="demo" class="bg-hero pb-32 px-6">
   <div class="max-w-5xl mx-auto fade-4">
-    <div class="product-shadow rounded-2xl overflow-hidden bg-white border" style="border-color: var(--line);">
+    <div class="text-center mb-8">
+      <div class="text-xs uppercase tracking-widest text-neutral-400 mb-3 mono">Live demo</div>
+      <h2 class="serif text-4xl md:text-5xl tracking-[-0.02em]">Watch Vesta work in <span class="italic">real time.</span></h2>
+    </div>
+
+    <div class="product-shadow rounded-2xl overflow-hidden bg-white border" id="demo-frame" style="border-color: var(--line);">
+      <!-- Browser chrome -->
       <div class="border-b px-5 py-3.5 flex items-center gap-3" style="border-color: var(--line); background: var(--bg-warm);">
         <div class="flex gap-1.5">
           <div class="w-3 h-3 rounded-full bg-red-400"></div>
@@ -126,92 +152,118 @@
         <div class="text-xs text-neutral-400">2:34 PM</div>
       </div>
 
-      <div class="p-8 bg-white">
-        <div class="flex items-start justify-between gap-6 mb-6">
-          <div class="flex-1 min-w-0">
-            <div class="text-xs text-neutral-500 mb-1 uppercase tracking-wider">Analyzing</div>
-            <h3 class="serif text-3xl tracking-tight mb-1">1847 Mountain Loop Rd</h3>
-            <div class="text-sm text-neutral-500">Gatlinburg, TN · 3BR/2BA · 1,650 sqft · Asking $389k</div>
-          </div>
-          <div class="text-center flex-shrink-0">
-            <div class="w-20 h-20 rounded-2xl flex items-center justify-center text-white pulse-ring" style="background: linear-gradient(135deg, #f59e0b, #b45309);">
-              <span class="serif text-4xl">94</span>
-            </div>
-            <div class="text-[10px] text-neutral-400 uppercase tracking-wider mt-2 font-semibold">AI Score</div>
+      <!-- Animated content -->
+      <div class="p-8 bg-white min-h-[600px]">
+        <!-- Step 1: typing search -->
+        <div class="mb-6">
+          <div class="text-xs text-neutral-400 uppercase tracking-wider mb-2 font-semibold">Address</div>
+          <div class="card p-3 flex items-center gap-3">
+            <svg class="w-4 h-4 text-neutral-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/></svg>
+            <span class="text-base font-medium" id="typed-address"></span><span class="cursor" id="cursor"></span>
           </div>
         </div>
 
-        <div class="grid grid-cols-3 gap-3 mb-6">
+        <!-- Step 2: AI thinking -->
+        <div class="reveal mb-6" id="thinking">
           <div class="card p-4">
-            <div class="text-[10px] text-neutral-400 uppercase tracking-wider mb-1">Year 1 Cash Flow</div>
-            <div class="text-2xl font-semibold mono accent-text">+$38.2k</div>
-            <div class="text-xs text-neutral-500 mt-0.5">$32k–$44k range</div>
-          </div>
-          <div class="card p-4">
-            <div class="text-[10px] text-neutral-400 uppercase tracking-wider mb-1">10-Year ROI</div>
-            <div class="text-2xl font-semibold mono accent-text">+312%</div>
-            <div class="text-xs text-neutral-500 mt-0.5">$512k cumulative</div>
-          </div>
-          <div class="card p-4">
-            <div class="text-[10px] text-neutral-400 uppercase tracking-wider mb-1">Cash-on-Cash</div>
-            <div class="text-2xl font-semibold mono accent-text">14.2%</div>
-            <div class="text-xs text-neutral-500 mt-0.5">Above 10% target</div>
-          </div>
-        </div>
-
-        <div class="rounded-xl p-4 mb-6 border" style="background: var(--accent-bg); border-color: rgba(217,119,6,0.18);">
-          <div class="flex items-start gap-3">
-            <div class="w-6 h-6 rounded-md flex items-center justify-center flex-shrink-0 mt-0.5" style="background: var(--accent);">
-              <svg class="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v2.07a7 7 0 014.93 4.93H18a1 1 0 110 2h-2.07a7 7 0 01-4.93 4.93V18a1 1 0 11-2 0v-2.07a7 7 0 01-4.93-4.93H2a1 1 0 110-2h2.07A7 7 0 019 5.07V3a1 1 0 011-1z"/></svg>
-            </div>
-            <div>
-              <div class="text-[10px] font-semibold uppercase tracking-wide mb-1 accent-text">Why this scored 94</div>
-              <p class="text-sm text-neutral-700 leading-relaxed">
-                Priced $14k below comps. No HOA. 8 similar cabins within 2mi earning $52k–$64k/yr. Strong cabin market — Gatlinburg occupancy at 72% (24-mo avg).
-              </p>
-              <div class="text-[10px] text-neutral-500 mt-2">Sources: RentCast · AirDNA · 14 verified Airbnb calendars</div>
+            <div class="text-[10px] text-neutral-400 uppercase tracking-wider mb-2 font-semibold">AI is analyzing</div>
+            <div class="space-y-2 text-sm">
+              <div class="flex items-center gap-2 text-neutral-600" id="step1"><div class="spinner"></div><span>Pulling property record from RentCast…</span></div>
+              <div class="flex items-center gap-2 text-neutral-400" id="step2"><div class="w-3.5 h-3.5"></div><span>Finding 8 nearby Airbnb comps…</span></div>
+              <div class="flex items-center gap-2 text-neutral-400" id="step3"><div class="w-3.5 h-3.5"></div><span>Checking Gatlinburg STR ordinance…</span></div>
+              <div class="flex items-center gap-2 text-neutral-400" id="step4"><div class="w-3.5 h-3.5"></div><span>Running 10-year cash flow model…</span></div>
             </div>
           </div>
         </div>
 
-        <div class="text-[10px] font-semibold text-neutral-400 uppercase tracking-wider mb-2">Verify before offer</div>
-        <div class="flex flex-wrap gap-2">
-          <span class="text-xs bg-amber-50 border border-amber-200 text-amber-800 px-2.5 py-1 rounded-md">⚠ Confirm STR ordinance with city</span>
-          <span class="text-xs bg-neutral-50 border text-neutral-600 px-2.5 py-1 rounded-md" style="border-color: var(--line);">Get inspection</span>
-          <span class="text-xs bg-neutral-50 border text-neutral-600 px-2.5 py-1 rounded-md" style="border-color: var(--line);">Verify roof age</span>
+        <!-- Step 3: results -->
+        <div class="reveal" id="results">
+          <!-- Property header + score -->
+          <div class="flex items-start justify-between gap-6 mb-6">
+            <div class="flex-1 min-w-0">
+              <div class="text-xs text-neutral-500 mb-1 uppercase tracking-wider">Result</div>
+              <h3 class="serif text-3xl tracking-tight mb-1">1847 Mountain Loop Rd</h3>
+              <div class="text-sm text-neutral-500">Gatlinburg, TN · 3BR/2BA · 1,650 sqft · Asking $389k</div>
+            </div>
+            <div class="text-center flex-shrink-0">
+              <div class="relative w-24 h-24 rounded-2xl flex items-center justify-center text-white pulse-ring" style="background: linear-gradient(135deg, #f59e0b, #b45309);">
+                <svg class="absolute inset-0 w-24 h-24" viewBox="0 0 96 96">
+                  <circle class="ring-bg" cx="48" cy="48" r="36"/>
+                  <circle class="ring-fill" id="ring-fill" cx="48" cy="48" r="36"/>
+                </svg>
+                <span class="serif text-4xl relative z-10" id="score-counter">0</span>
+              </div>
+              <div class="text-[10px] text-neutral-400 uppercase tracking-wider mt-2 font-semibold">AI Score / 100</div>
+            </div>
+          </div>
+
+          <!-- Animated stat tiles -->
+          <div class="grid grid-cols-3 gap-3 mb-6">
+            <div class="card p-4 scale-in" id="stat1">
+              <div class="text-[10px] text-neutral-400 uppercase tracking-wider mb-1">Year 1 Cash Flow</div>
+              <div class="text-2xl font-semibold mono accent-text"><span id="cf-counter">0</span></div>
+              <div class="text-xs text-neutral-500 mt-0.5">$32k–$44k range</div>
+            </div>
+            <div class="card p-4 scale-in" id="stat2">
+              <div class="text-[10px] text-neutral-400 uppercase tracking-wider mb-1">10-Year ROI</div>
+              <div class="text-2xl font-semibold mono accent-text"><span id="roi-counter">0</span>%</div>
+              <div class="text-xs text-neutral-500 mt-0.5">$512k cumulative</div>
+            </div>
+            <div class="card p-4 scale-in" id="stat3">
+              <div class="text-[10px] text-neutral-400 uppercase tracking-wider mb-1">Cash-on-Cash</div>
+              <div class="text-2xl font-semibold mono accent-text"><span id="coc-counter">0</span>%</div>
+              <div class="text-xs text-neutral-500 mt-0.5">Above 10% target</div>
+            </div>
+          </div>
+
+          <!-- Comp bars -->
+          <div class="card p-4 mb-6 scale-in" id="comps">
+            <div class="text-[10px] text-neutral-400 uppercase tracking-wider mb-3 font-semibold">8 nearby Airbnb comps · annual revenue</div>
+            <div class="space-y-2">
+              <div class="flex items-center gap-3"><span class="text-xs text-neutral-500 w-16 mono">Comp 1</span><div class="bar-track flex-1"><div class="bar-fill" data-fill="60"></div></div><span class="text-xs mono w-14 text-right">$52k</span></div>
+              <div class="flex items-center gap-3"><span class="text-xs text-neutral-500 w-16 mono">Comp 2</span><div class="bar-track flex-1"><div class="bar-fill" data-fill="75"></div></div><span class="text-xs mono w-14 text-right">$61k</span></div>
+              <div class="flex items-center gap-3"><span class="text-xs accent-text w-16 mono font-semibold">This one</span><div class="bar-track flex-1"><div class="bar-fill" data-fill="85" style="background: linear-gradient(90deg, #b45309, #92400e);"></div></div><span class="text-xs mono w-14 text-right accent-text font-semibold">$58k</span></div>
+              <div class="flex items-center gap-3"><span class="text-xs text-neutral-500 w-16 mono">Comp 3</span><div class="bar-track flex-1"><div class="bar-fill" data-fill="80"></div></div><span class="text-xs mono w-14 text-right">$64k</span></div>
+              <div class="flex items-center gap-3"><span class="text-xs text-neutral-500 w-16 mono">Comp 4</span><div class="bar-track flex-1"><div class="bar-fill" data-fill="68"></div></div><span class="text-xs mono w-14 text-right">$54k</span></div>
+            </div>
+          </div>
+
+          <!-- AI reasoning -->
+          <div class="rounded-xl p-4 mb-4 border scale-in" id="reasoning" style="background: var(--accent-bg); border-color: rgba(217,119,6,0.18);">
+            <div class="flex items-start gap-3">
+              <div class="w-6 h-6 rounded-md flex items-center justify-center flex-shrink-0 mt-0.5" style="background: var(--accent);">
+                <svg class="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v2.07a7 7 0 014.93 4.93H18a1 1 0 110 2h-2.07a7 7 0 01-4.93 4.93V18a1 1 0 11-2 0v-2.07a7 7 0 01-4.93-4.93H2a1 1 0 110-2h2.07A7 7 0 019 5.07V3a1 1 0 011-1z"/></svg>
+              </div>
+              <div>
+                <div class="text-[10px] font-semibold uppercase tracking-wide mb-1 accent-text">Why this scored 94</div>
+                <p class="text-sm text-neutral-700 leading-relaxed">Priced $14k below comps. No HOA. 8 similar cabins within 2mi earning $52k–$64k/yr. Strong cabin market — Gatlinburg occupancy at 72% (24-mo avg).</p>
+                <div class="text-[10px] text-neutral-500 mt-2">Sources: RentCast · AirDNA · 14 verified Airbnb calendars</div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
+
+    <p class="text-center text-sm text-neutral-500 mt-6">Real analysis. Real sources. Real numbers.</p>
   </div>
 </section>
 
 <!-- HOW IT WORKS -->
-<section class="max-w-5xl mx-auto px-6 py-20 border-t" style="border-color: var(--line);">
+<section id="how" class="max-w-5xl mx-auto px-6 py-20 border-t" style="border-color: var(--line);">
   <div class="text-center mb-12">
     <div class="text-xs uppercase tracking-widest text-neutral-400 mb-3 mono">How it works</div>
     <h2 class="serif text-5xl md:text-6xl tracking-[-0.02em]">Three steps. <span class="italic">Ninety seconds.</span></h2>
   </div>
   <div class="grid md:grid-cols-3 gap-4">
-    <div class="card card-hover p-7">
-      <div class="mono font-bold text-sm mb-3 accent-text">01</div>
-      <h3 class="font-semibold mb-1 text-lg">Paste an address</h3>
-      <p class="text-sm text-neutral-500">Or describe a market — e.g., "cabins under $500k in Gatlinburg."</p>
-    </div>
-    <div class="card card-hover p-7">
-      <div class="mono font-bold text-sm mb-3 accent-text">02</div>
-      <h3 class="font-semibold mb-1 text-lg">AI runs the math</h3>
-      <p class="text-sm text-neutral-500">Comps, 10-year cash flow, regulation risk — with sources cited.</p>
-    </div>
-    <div class="card card-hover p-7">
-      <div class="mono font-bold text-sm mb-3 accent-text">03</div>
-      <h3 class="font-semibold mb-1 text-lg">Get the answer</h3>
-      <p class="text-sm text-neutral-500">Score, reasoning, red flags. Free PDF or save to your account.</p>
-    </div>
+    <div class="card card-hover p-7"><div class="mono font-bold text-sm mb-3 accent-text">01</div><h3 class="font-semibold mb-1 text-lg">Paste an address</h3><p class="text-sm text-neutral-500">Or describe a market — e.g., "cabins under $500k in Gatlinburg."</p></div>
+    <div class="card card-hover p-7"><div class="mono font-bold text-sm mb-3 accent-text">02</div><h3 class="font-semibold mb-1 text-lg">AI runs the math</h3><p class="text-sm text-neutral-500">Comps, 10-year cash flow, regulation risk — with sources cited.</p></div>
+    <div class="card card-hover p-7"><div class="mono font-bold text-sm mb-3 accent-text">03</div><h3 class="font-semibold mb-1 text-lg">Get the answer</h3><p class="text-sm text-neutral-500">Score, reasoning, red flags. Free PDF or save to your account.</p></div>
   </div>
 </section>
 
 <!-- PRICING -->
-<section class="max-w-3xl mx-auto px-6 py-20 border-t" style="border-color: var(--line);">
+<section id="pricing" class="max-w-3xl mx-auto px-6 py-20 border-t" style="border-color: var(--line);">
   <div class="text-center mb-12">
     <div class="text-xs uppercase tracking-widest text-neutral-400 mb-3 mono">Pricing</div>
     <h2 class="serif text-5xl md:text-6xl tracking-[-0.02em]">Free to try. <span class="italic">$39 to use it daily.</span></h2>
@@ -225,19 +277,13 @@
     </div>
     <div class="card p-6">
       <div class="text-xs uppercase tracking-wider text-neutral-500 mb-2 font-semibold">Starter</div>
-      <div class="flex items-baseline gap-1 mb-1">
-        <span class="serif text-5xl tracking-tight">$39</span>
-        <span class="text-base text-neutral-500">/mo</span>
-      </div>
+      <div class="flex items-baseline gap-1 mb-1"><span class="serif text-5xl tracking-tight">$39</span><span class="text-base text-neutral-500">/mo</span></div>
       <div class="text-xs text-neutral-500 mb-4">10 analyses/mo · Saved searches</div>
       <button class="w-full bg-white border text-black font-medium py-2 rounded-lg text-sm hover:bg-neutral-50 transition" style="border-color: rgba(0,0,0,0.15);">Start free trial</button>
     </div>
     <div class="rounded-2xl p-6 text-white shadow-lg" style="background: linear-gradient(135deg, #1c1917 0%, #0a0a0a 100%);">
       <div class="text-xs uppercase tracking-wider text-amber-200 mb-2 font-semibold">Pro</div>
-      <div class="flex items-baseline gap-1 mb-1">
-        <span class="serif text-5xl tracking-tight">$99</span>
-        <span class="text-base text-neutral-400">/mo</span>
-      </div>
+      <div class="flex items-baseline gap-1 mb-1"><span class="serif text-5xl tracking-tight">$99</span><span class="text-base text-neutral-400">/mo</span></div>
       <div class="text-xs text-neutral-400 mb-4">200 analyses · Deal alerts · Priority</div>
       <button class="w-full btn-accent font-medium py-2 rounded-lg text-sm">Start free trial</button>
     </div>
@@ -245,16 +291,88 @@
   <p class="text-center text-xs text-neutral-500 mt-6">14-day free trial · 30-day money-back · Cancel anytime</p>
 </section>
 
+<!-- FAQ -->
+<section id="faq" class="max-w-3xl mx-auto px-6 py-20 border-t" style="border-color: var(--line);">
+  <div class="text-center mb-12">
+    <div class="text-xs uppercase tracking-widest text-neutral-400 mb-3 mono">FAQ</div>
+    <h2 class="serif text-5xl md:text-6xl tracking-[-0.02em]">Common <span class="italic">questions.</span></h2>
+  </div>
+
+  <div class="card px-8 py-2">
+    <div class="faq-item">
+      <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+        <span class="font-semibold text-base">How accurate is the AI's analysis?</span>
+        <svg class="faq-icon w-5 h-5 text-neutral-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/></svg>
+      </div>
+      <div class="faq-a text-sm text-neutral-600 leading-relaxed">Within ±20% of actual market data when verified. We surface confidence intervals on every projection (e.g., "$32k–$44k Y1 cash flow") and cite every source — RentCast, AirDNA, public records. No black-box single-point estimates.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+        <span class="font-semibold text-base">Is this financial or legal advice?</span>
+        <svg class="faq-icon w-5 h-5 text-neutral-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/></svg>
+      </div>
+      <div class="faq-a text-sm text-neutral-600 leading-relaxed">No. Vesta is a research tool that organizes public data. Every report ends with a "verify before offer" checklist (inspection, ordinance check, HOA review). Always consult a real estate attorney, CPA, and inspector before purchasing.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+        <span class="font-semibold text-base">What data sources do you use?</span>
+        <svg class="faq-icon w-5 h-5 text-neutral-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/></svg>
+      </div>
+      <div class="faq-a text-sm text-neutral-600 leading-relaxed">Active listings + sold comps from RentCast and Realtor.com. Short-term rental performance from AirDNA + verified Airbnb calendars. Regulation data from city ordinance pages and HOA records. Every data point is footnoted with its source.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+        <span class="font-semibold text-base">Does it work for long-term rentals or only Airbnb?</span>
+        <svg class="faq-icon w-5 h-5 text-neutral-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/></svg>
+      </div>
+      <div class="faq-a text-sm text-neutral-600 leading-relaxed">Short-term rentals (Airbnb, VRBO) at launch. Long-term rental analysis is on the roadmap and ships within 90 days of launch. The same engine — different data sources and projection logic.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+        <span class="font-semibold text-base">What if my market isn't covered?</span>
+        <svg class="faq-icon w-5 h-5 text-neutral-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/></svg>
+      </div>
+      <div class="faq-a text-sm text-neutral-600 leading-relaxed">We cover all 50 US states. Some smaller markets have fewer comps — when that happens, we lower the confidence score and flag it instead of guessing. If you can't get a confident analysis, you don't pay.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+        <span class="font-semibold text-base">How is this different from AirDNA or Mashvisor?</span>
+        <svg class="faq-icon w-5 h-5 text-neutral-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/></svg>
+      </div>
+      <div class="faq-a text-sm text-neutral-600 leading-relaxed">Those tools give you raw data dashboards. Vesta uses AI to <em>reason</em> about that data — synthesizing comps, regulation, seasonality, and 10-year cash flow into a single answer with citations. We don't replace AirDNA, we make sense of it.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+        <span class="font-semibold text-base">Can I cancel anytime?</span>
+        <svg class="faq-icon w-5 h-5 text-neutral-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/></svg>
+      </div>
+      <div class="faq-a text-sm text-neutral-600 leading-relaxed">Yes. Cancel from your account in two clicks — no calls, no support tickets. 14-day free trial, then 30-day money-back guarantee on your first paid month.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+        <span class="font-semibold text-base">How is my data handled?</span>
+        <svg class="faq-icon w-5 h-5 text-neutral-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/></svg>
+      </div>
+      <div class="faq-a text-sm text-neutral-600 leading-relaxed">Your searches and saved properties are private — only you see them. We never sell user data. We use Stripe (payments), Supabase (auth + database), and Anthropic Claude (AI) — all SOC 2 compliant. Full privacy policy on the Privacy page.</div>
+    </div>
+  </div>
+
+  <p class="text-center text-sm text-neutral-500 mt-8">More questions? <a href="mailto:hello@vesta.ai" class="accent-text font-medium underline-offset-2 hover:underline">hello@vesta.ai</a></p>
+</section>
+
 <!-- Final CTA -->
 <section class="max-w-3xl mx-auto px-6 py-20">
   <div class="card p-14 text-center" style="background: linear-gradient(135deg, #0a0a0a 0%, #1c1917 100%);">
-    <h2 class="serif text-5xl md:text-6xl tracking-[-0.02em] text-white mb-3">
-      Try it on a <span class="italic">real address.</span>
-    </h2>
+    <h2 class="serif text-5xl md:text-6xl tracking-[-0.02em] text-white mb-3">Try it on a <span class="italic">real address.</span></h2>
     <p class="text-neutral-400 mb-8 text-lg">Free PDF report. No signup. 90 seconds.</p>
-    <button class="btn-accent px-8 py-3.5 rounded-xl text-base font-semibold">
-      Analyze a property →
-    </button>
+    <button class="btn-accent px-8 py-3.5 rounded-xl text-base font-semibold">Analyze a property →</button>
   </div>
 </section>
 
@@ -276,6 +394,147 @@
     </div>
   </div>
 </footer>
+
+<script>
+// ============== ANIMATED DEMO SEQUENCE ==============
+// Fires when the demo section scrolls into view. Plays once.
+
+const demoFrame = document.getElementById('demo-frame');
+let demoPlayed = false;
+
+const playDemo = () => {
+  if (demoPlayed) return;
+  demoPlayed = true;
+
+  const ADDRESS = '1847 Mountain Loop Rd, Gatlinburg, TN';
+  const typed = document.getElementById('typed-address');
+
+  // Step 1: type address
+  let i = 0;
+  const typeNext = () => {
+    if (i < ADDRESS.length) {
+      typed.textContent = ADDRESS.slice(0, i + 1);
+      i++;
+      setTimeout(typeNext, 35 + Math.random() * 25);
+    } else {
+      // Hide cursor after typing
+      setTimeout(() => document.getElementById('cursor').style.display = 'none', 400);
+      // Step 2: show thinking panel
+      setTimeout(() => document.getElementById('thinking').classList.add('show'), 600);
+      // Cycle through thinking steps
+      const steps = ['step1','step2','step3','step4'];
+      steps.forEach((id, idx) => {
+        setTimeout(() => {
+          if (idx > 0) {
+            // Mark previous step as done
+            const prev = document.getElementById(steps[idx-1]);
+            prev.querySelector('.spinner').remove();
+            const check = document.createElement('div');
+            check.innerHTML = '✓';
+            check.className = 'text-[12px] font-bold w-3.5 h-3.5 flex items-center justify-center';
+            check.style.color = 'var(--accent)';
+            prev.insertBefore(check, prev.firstChild);
+            prev.classList.remove('text-neutral-400');
+            prev.classList.add('text-neutral-500');
+          }
+          // Activate current step
+          const curr = document.getElementById(id);
+          if (curr.querySelector('.spinner') === null && idx < 4) {
+            const empty = curr.querySelector('div');
+            empty.outerHTML = '<div class="spinner"></div>';
+            curr.classList.remove('text-neutral-400');
+            curr.classList.add('text-neutral-600');
+          }
+        }, 1000 + idx * 700);
+      });
+
+      // Step 3: reveal results
+      setTimeout(() => {
+        document.getElementById('thinking').style.transition = 'all 0.5s ease';
+        document.getElementById('thinking').style.opacity = '0.4';
+        document.getElementById('results').classList.add('show');
+
+        // Animate score ring + counter
+        setTimeout(() => {
+          const ring = document.getElementById('ring-fill');
+          ring.style.strokeDashoffset = (226 - (226 * 0.94)).toString();
+          countTo('score-counter', 0, 94, 1600);
+        }, 100);
+
+        // Animate stats with stagger
+        setTimeout(() => document.getElementById('stat1').classList.add('show'), 400);
+        setTimeout(() => countToCurrency('cf-counter', 0, 38200, 1400), 500);
+        setTimeout(() => document.getElementById('stat2').classList.add('show'), 600);
+        setTimeout(() => countTo('roi-counter', 0, 312, 1400), 700);
+        setTimeout(() => document.getElementById('stat3').classList.add('show'), 800);
+        setTimeout(() => countToDecimal('coc-counter', 0, 14.2, 1400), 900);
+
+        // Animate comp bars
+        setTimeout(() => {
+          document.getElementById('comps').classList.add('show');
+          document.querySelectorAll('.bar-fill').forEach((bar, idx) => {
+            setTimeout(() => bar.style.width = bar.dataset.fill + '%', idx * 120);
+          });
+        }, 1200);
+
+        // AI reasoning
+        setTimeout(() => document.getElementById('reasoning').classList.add('show'), 2000);
+      }, 4500);
+    }
+  };
+  typeNext();
+};
+
+// Count animation utilities
+function countTo(id, from, to, duration) {
+  const el = document.getElementById(id);
+  const start = performance.now();
+  const tick = (now) => {
+    const elapsed = now - start;
+    const progress = Math.min(elapsed / duration, 1);
+    const eased = 1 - Math.pow(1 - progress, 3);
+    el.textContent = Math.round(from + (to - from) * eased);
+    if (progress < 1) requestAnimationFrame(tick);
+  };
+  requestAnimationFrame(tick);
+}
+function countToCurrency(id, from, to, duration) {
+  const el = document.getElementById(id);
+  const start = performance.now();
+  const tick = (now) => {
+    const elapsed = now - start;
+    const progress = Math.min(elapsed / duration, 1);
+    const eased = 1 - Math.pow(1 - progress, 3);
+    const val = Math.round(from + (to - from) * eased);
+    el.textContent = '+$' + (val/1000).toFixed(1) + 'k';
+    if (progress < 1) requestAnimationFrame(tick);
+  };
+  requestAnimationFrame(tick);
+}
+function countToDecimal(id, from, to, duration) {
+  const el = document.getElementById(id);
+  const start = performance.now();
+  const tick = (now) => {
+    const elapsed = now - start;
+    const progress = Math.min(elapsed / duration, 1);
+    const eased = 1 - Math.pow(1 - progress, 3);
+    el.textContent = (from + (to - from) * eased).toFixed(1);
+    if (progress < 1) requestAnimationFrame(tick);
+  };
+  requestAnimationFrame(tick);
+}
+
+// Trigger when demo scrolls into view
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      playDemo();
+      observer.disconnect();
+    }
+  });
+}, { threshold: 0.3 });
+observer.observe(demoFrame);
+</script>
 
 </body>
 </html>
