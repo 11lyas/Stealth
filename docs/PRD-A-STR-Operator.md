@@ -1,6 +1,6 @@
 # PRD — Vesta · AI Rental Property Comping
 
-**Status:** Scoped v0.7 · UX principles + freshness + quality threshold added
+**Status:** Scoped v0.8 · Quality threshold + freshness guarantee + regulation strategy + alerts in v1
 **Working name:** Vesta (locked)
 **Platform:** Web SaaS (iOS app planned for v3+)
 **Target ship:** 5 weeks to first paying customer
@@ -82,12 +82,48 @@ Every output the user sees has these properties:
 | **Active listings** | RentCast API | $99/mo | Upgrade to ATTOM at 200+ users |
 | **Sold comps** | RentCast + Realtor.com API | Included | — |
 | **STR revenue estimates** | Rabbu free tier → AirDNA | $0–$99/mo | $299/mo at 100+ users |
-| **Regulation data** | Custom curation of city ordinances | $0 | Outsource to research firm at scale |
+| **Regulation data** | Hybrid curation (see §6.5) | $5-10k upfront | $2k/quarter |
 | **Property characteristics** | RentCast | Included | — |
+| **News monitoring** (regulation changes) | NewsAPI/Google News | $50/mo | $200/mo |
 
 **Multi-source verification:** every key data point cross-referenced across 2+ sources. Conflicts flagged, not hidden.
 
 **Data quality gating:** properties with insufficient data (e.g., <2 comparable sales in 6 mo) are explicitly excluded with reason — not ranked low.
+
+### 6.5. Regulation strategy (hybrid — never pure AI)
+
+**Top 50 STR markets** (covers ~80% of investor demand): hand-curated by a paralegal/research firm. Each market stores: ordinance ruling, last-verified date, source PDF link, key rules. Quarterly re-verification.
+
+**Long tail (any other US city):** AI parses the actual public ordinance PDF using **strict grounding** — Claude only references text it can directly quote from the source document, never makes up rules. If the AI can't find specific language, it says *"Regulation status unclear — verify with city"* instead of guessing.
+
+**Active monitoring:** NewsAPI + Google News watch for terms like *"[city] STR ban"*, *"short-term rental ordinance change"*. Hits flag affected markets for re-verification within 48h.
+
+**User-visible:** every regulation card shows `Last verified: 2026-03-15 · Source: Hamilton County Code §8.24` + PDF link. Permanent disclaimer: *"Regulations change — confirm with city before offer."*
+
+### 6.6. Freshness Guarantee (defensible trust signal)
+
+**The promise:** *"If a property in your analysis went under contract more than 1 hour before your search, we credit your account."*
+
+**How we deliver:**
+- **Cache TTL** — 4hr for full property data, 1hr for status
+- **Visible freshness badge** per property:
+  - 🟢 Fresh (verified < 1h)
+  - 🟡 Warm (1-4h, re-checks on click)
+  - 🟠 Stale (> 4h, "verify with realtor" warning)
+  - 🔴 Off-market (with alternatives shown)
+- **Async re-verify on report generation** — last-mile status check via API
+- **Multi-source cross-check** detects status conflicts automatically
+- **Webhook subscriptions** to RentCast → push status changes into our cache instantly
+
+**Operational cost** at 1k users running 5 searches/mo each = ~1.3% of revenue. Cheap insurance.
+
+### 6.7. Parallel build with seed data (no waiting on data pipeline)
+
+**Week 1 of build:** AI ranking engine builds against a **JSON fixture of 50 realistic properties** (mixed types across our top markets — real-looking addresses, plausible prices, comp data, occupancy). Full UI flows work end-to-end on seed data.
+
+**Week 2:** swap data layer from fixture → RentCast API. Same internal `PropertyData` interface — AI engine doesn't change.
+
+**Fixture stays useful forever:** automated tests, demo mode (free-tier), AI prompt iteration without burning live API costs.
 
 ## 7. Iteration 1 scope (web v1)
 
@@ -96,8 +132,10 @@ Every output the user sees has these properties:
 | **Free tier — 1 free PDF report** | No signup. Type address → instant 1-pager with confidence-scored analysis. Captures emails, builds trust. |
 | **4-stage onboarding prompt** | Aspiring / New / Growing / Scaling. Tailors UX. |
 | **Search form** | Market, budget, property type, target cash-on-cash return |
-| **5-factor AI ranking** | (1) Budget fit, (2) Comp price validation, (3) Area demand+regulation, (4) Operating costs, (5) Long-term profit. Top 5 default, expandable. |
+| **Single-property analysis** | Address in → full report out. No curated lists. If user runs a market search, returns ALL properties that clear quality threshold (≥8% CoC, comps verifiable, no red-flag regs). 0 if none qualify. No filler. |
+| **5-factor scoring** | (1) Budget fit, (2) Comp price validation, (3) Area demand+regulation, (4) Operating costs, (5) Long-term profit. Score 0-100 per property. |
 | **Property result card** | Photos, price, 10-yr projection w/ confidence bands, AI reasoning, red flags, source citations |
+| **Saved searches + weekly email digest** | User saves "cabins under $500k in Gatlinburg" → weekly email of new matches. Brings users back day 7 even without push alerts. |
 | **Real-time market data panel** | Live occupancy, ADR, revenue trends — sourced + timestamped |
 | **Comparable listings graphs** | 5–10 nearby Airbnbs — with footnotes "based on N verified calendars" |
 | **Price vs comp graph** | Asking price vs recent sales overlay |
@@ -126,20 +164,22 @@ Every output the user sees has these properties:
 **Reposition from "search tool" to "investment manager."** Users have reasons to come back AFTER they buy.
 
 ### v1 (week 6 launch)
-- Property finder (the hook)
+- Single-property analysis (the wedge)
+- Market search (returns all properties clearing threshold, 0 if none qualify)
 - Free PDF report (top of funnel)
-- Saved searches → email when new matches drop ("deal alerts")
+- **Saved searches + weekly email digest** (deal alerts moved into v1 — retention can't wait)
 
 ### v1.5 (month 2-3)
 - **Portfolio tracker** — user enters their bought property; we benchmark monthly performance vs. comps
 - **Market pulse** — weekly email of trends in their market
 - **Refi opportunity flags** — "rates dropped, you could save $X/mo on your Gatlinburg property"
+- **Push notifications** for high-priority deal alerts (browser + email)
 
 ### v2 (month 4-6)
 - **Tax-time bundle** — Schedule E export
 - **Renovation ROI** — "spend $30k on this, revenue +$8k/yr"
 - **Performance dashboards** — month-over-month per property
-- **Deal alerts on saved searches** — push notifications
+- **AI optimization recommendations** for owned properties
 
 **Result:** users keep paying $99/mo even after their purchase, because the tool helps them MANAGE the property too.
 
@@ -210,26 +250,30 @@ v1 ships ONE feature; the architecture carries 10 features without rewrites.
 7. ✅ NPS ≥ 40
 8. ✅ Monthly churn <10%
 
-## 14. Timeline (5 weeks to paying customer)
+## 14. Timeline (5 weeks to paying customer · parallel tracks)
 
-| Week | Deliverable |
-|---|---|
-| **1** | Foundation: Next.js + Supabase + auth + Stripe + design system + landing + onboarding + 4-stage prompt |
-| **2** | Data integration: RentCast + Rabbu APIs + regulation DB + multi-source cross-verification |
-| **3** | AI engine: 5-factor scoring + confidence intervals + source citations + Claude reasoning prompts |
-| **4** | UI polish: result cards, expandable views, real-time market panel, comp graphs, 10-yr ROI table, PDF export |
-| **5** | Free tier launch + 5-user private beta + bug fixes + Stripe billing + public launch |
+| Week | Track A — Product (AI + UI) | Track B — Data (APIs + regulation) |
+|---|---|---|
+| **1** | Next.js + Supabase + auth + Stripe + design system + landing + onboarding | Apply for RentCast/Rabbu API access. Generate 50-property JSON fixture. |
+| **2** | AI engine v0 against fixture: 5-factor scoring + confidence intervals + reasoning prompts | RentCast integration. Multi-source cross-verification. |
+| **3** | UI polish: result cards, comp graphs, 10-yr ROI, freshness badges, progressive disclosure stream | Curate top 50 markets regulation DB. NewsAPI monitoring online. |
+| **4** | Saved searches + weekly email digest. PDF export. Quality threshold logic. | Swap fixture → live data. Async status re-verification. |
+| **5** | 5-user private beta. Stripe billing. Bug fixes. Freshness Guarantee live. | Operational dashboard for monitoring data freshness + accuracy. |
 
-**Week 6: first paying customers.**
+**Week 6: first paying customers.** Tracks A + B merge in week 4 — by then UI works on real data.
 
 ## 15. Decisions to lock before week 1
 
-- [ ] Brand name (Roost / Longview / Compound / Forge / Harbor / other)
-- [ ] Domain purchased
+- [x] **Brand name: Vesta** ✅
+- [x] **Database: Supabase provisioned + schema deployed** ✅
+- [x] **Hosting: Vercel deployed** ✅
+- [x] **Repo: github.com/11lyas/Stealth** ✅
+- [ ] Domain purchased (likely vesta.ai)
 - [ ] Data provider confirmed (RentCast → AirDNA path)
 - [ ] Markets at launch (10 top US or national)
-- [ ] Beta cohort source
+- [ ] Beta cohort source (BiggerPockets / r/airbnb_hosts / influencers)
 - [ ] Legal entity (sole prop or LLC)
+- [ ] Marketing site approach (Framer for marketing, Next.js for product app — likely)
 
 ## 16. v2+ roadmap (NOT in v1)
 
