@@ -209,6 +209,131 @@ Every output the user sees has these properties:
 
 **Zero paid ads until 3 testimonials.** They don't work without proof.
 
+## 10.5. Design system + brand identity
+
+### Brand identity
+- **Name:** Vesta — Roman goddess of hearth + home
+- **Voice:** confident, honest, editorial, never bro-y. Says "walk away" when the deal is bad.
+- **Logo:** V silhouette as roof, dot above as hearth flame. Single-color or amber gradient.
+- **Reference vibes:** bricked.ai (editorial premium), Linear (clean tech), Vercel (minimal), Notion early (warm minimalism).
+- **NOT:** chatarv-green, generic SaaS-bro, "AI startup #4,872" gradient slop.
+
+### Design tokens (lock these in Figma)
+
+```css
+/* Colors */
+--bg            #fafaf7   /* warm cream */
+--bg-warm       #f5f1ea   /* deeper cream for sections */
+--ink           #0a0a0a   /* near-black, primary text */
+--ink-soft      #525252   /* secondary text */
+--ink-muted     #737373   /* tertiary text, captions */
+--line          rgba(0,0,0,0.08)  /* borders */
+--accent        #d97706   /* primary amber */
+--accent-light  #f59e0b   /* gradient highlight */
+--accent-dark   #b45309   /* hover/dark variant */
+--accent-bg     rgba(217,119,6,0.08)  /* tinted backgrounds */
+
+/* States */
+--success       #10b981  /* used sparingly — primary is amber */
+--warn          #f59e0b
+--danger        #ef4444
+--info          #3b82f6
+```
+
+### Typography
+- **Display headlines:** Instrument Serif, italic for accent words ("Know", "real address")
+- **Body / UI:** Inter — weights 400, 500, 600, 700
+- **Mono / numbers:** JetBrains Mono — for currency, percentages, IDs
+- **Sizes:** 80–100px (hero), 48–64px (h2), 24–36px (h3), 16–18px (body), 14px (small), 11px uppercase mono (eyebrows)
+
+### Spacing scale (strict)
+4 / 8 / 12 / 16 / 24 / 32 / 48 / 64 / 96 / 128 — no other values allowed.
+
+### Radii
+6px (small), 12px (input/button), 16px (card), 24px (hero card), full (pills, avatars).
+
+### Shadows
+- Card: `0 1px 3px rgba(0,0,0,0.04)`
+- Card hover: `0 12px 30px -10px rgba(0,0,0,0.08)`
+- Hero / product mock: `0 50px 100px -25px rgba(217,119,6,0.18), 0 25px 50px -15px rgba(0,0,0,0.10)`
+
+### Component inventory (build in Figma library)
+
+| Component | Variants | Notes |
+|---|---|---|
+| Button | primary (black), accent (amber gradient), secondary (white outline), tertiary (text) | 3 sizes: sm/md/lg |
+| Input | default, focused, error, with-icon | 12px radius |
+| Card | default, hover, selected (amber ring), dark | 16px radius |
+| Stat tile | label + value + delta | mono font for numbers |
+| Score badge | 0–100 circular ring + number | progress arc fill |
+| Freshness badge | green/yellow/orange/red dot + label | with timestamp |
+| Red flag chip | warning amber + icon | inline |
+| AI reasoning panel | amber bg + icon + body + sources line | recurring pattern |
+| FAQ accordion | open/closed states | smooth max-height transition |
+| Pricing card | starter, pro (highlighted), plus | dark variant for Pro |
+| Demo browser chrome | mac-style traffic lights + URL bar | wraps product mocks |
+| Loading skeleton | shimmering placeholder bars | for every async load |
+| Progress step | spinner / check / pending icon + label | streams during AI run |
+
+### Screen inventory
+
+**Marketing (Framer or Next.js):**
+1. `/` Landing — hero + animated demo + how it works + features + pricing + FAQ + CTA + footer
+2. `/pricing` — full pricing table
+3. `/about` — founder story
+4. `/blog/*` — content marketing
+5. `/legal/*` — privacy, terms, disclaimers
+
+**Product app (Next.js):**
+1. Sign-up — email + Google OAuth
+2. Onboarding — 4-stage prompt (Aspiring/New/Growing/Scaling)
+3. Search dashboard — saved searches sidebar + new search
+4. Search → AI thinking — progressive disclosure stream
+5. Results — single property OR all-clearing-threshold
+6. Property detail — full deep-dive with all viz
+7. Account / billing
+8. Saved searches mgmt
+9. Email digest preview
+10. (v1.5) Portfolio dashboard
+
+### State coverage (every screen needs all of these)
+- Empty (no searches yet)
+- Loading (skeleton + progress stream)
+- Error (clear message + retry)
+- Partial data (e.g., comps unavailable for this zip)
+- Quality-threshold-not-met ("no strong matches today" + alternatives)
+- Off-market (property went under contract)
+
+### Responsive breakpoints
+- Mobile: 375–767
+- Tablet: 768–1023
+- Desktop: 1024+
+- Max content width: 1152px
+
+### Accessibility (non-negotiable)
+- WCAG AA contrast (test with `--ink` on `--bg` = 19.5:1 ✓)
+- Keyboard nav for every interactive element
+- Focus rings visible (amber outline)
+- Screen reader labels on icons
+- Reduced motion preference respected
+
+### Figma file structure (recommended)
+```
+🎨 Vesta Design System
+├── 00_Foundations        ← colors, type, spacing, radii tokens
+├── 01_Components         ← button, input, card, badge library
+├── 02_Patterns           ← navbar, footer, hero, FAQ section
+├── 03_Marketing screens  ← landing, pricing, about
+├── 04_App screens        ← onboarding, search, results, detail
+├── 05_States             ← loading, empty, error, partial
+└── 06_Mobile             ← responsive variants
+```
+
+### Figma Make / AI design tool prompt
+When using Figma Make (or v0, Galileo, etc.), feed it this brief:
+
+> "Premium SaaS landing page for an AI rental property analysis tool. Brand: Vesta — Roman goddess of hearth. Aesthetic: editorial, warm cream background (#fafaf7), warm amber accent (#d97706), Instrument Serif headlines (italic accents on key words), Inter body. Reference vibes: bricked.ai meets Linear meets Vercel. NO emerald green, NO standard SaaS gradient slop. Component inventory: hero with single CTA address input, animated product demo card, how-it-works 3-step, feature grid, pricing 3-tier, FAQ accordion, dark final CTA. Mobile-first responsive. WCAG AA contrast."
+
 ## 11. Tech stack
 
 | Layer | Pick | Notes |
