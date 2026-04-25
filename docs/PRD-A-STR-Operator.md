@@ -1,7 +1,7 @@
-# PRD — AI Property Finder for Rental Investors
+# PRD — Vesta · AI Rental Property Comping
 
-**Status:** Scoped v0.6 · Hardened against trust + scale concerns
-**Working name:** TBD (shortlist: Roost · Longview · Compound · Forge · Harbor)
+**Status:** Scoped v0.7 · UX principles + freshness + quality threshold added
+**Working name:** Vesta (locked)
 **Platform:** Web SaaS (iOS app planned for v3+)
 **Target ship:** 5 weeks to first paying customer
 
@@ -11,7 +11,7 @@
 
 **"Know every number before you buy."**
 
-AI analyzes any rental property — comps, 10-year cash flow, regulation risk, projected ROI — with confidence intervals, sources cited, and zero financial advice claims. Built for the short-term rental market first (Airbnb, VRBO), expanding to long-term rentals next.
+AI comps any STR or Airbnb property — comps, 10-year cash flow, regulation risk, projected ROI — with confidence intervals, sources cited, and zero financial advice claims. Built for short-term rentals first (Airbnb, VRBO), expanding to long-term rentals next. **Single property in, full analysis out — no curated lists, no force-ranked filler.**
 
 ## 2. The bottleneck
 
@@ -46,6 +46,18 @@ Three honest promises:
 1. **Time saved** — replace 20+ hours/month of manual research
 2. **Better decisions** — AI synthesizes signals no spreadsheet can (seasonality, regulation, long-term profitability) with stated confidence
 3. **Trustworthy output** — every number cited, every projection ranged, every uncertainty surfaced
+
+## 4.5. UX principles (non-negotiable)
+
+These shape every decision in the product:
+
+| Principle | What it means in practice |
+|---|---|
+| **Show your work, always** | Every number carries a source + confidence range. No black-box outputs. |
+| **Honest beats confident** | If data is thin, AI says so. If a deal is bad, AI says walk away. No force-ranked filler. |
+| **Progressive disclosure during analysis** | Long-running operations stream live progress via Supabase Realtime. Users see step-by-step status (RentCast pulled ✓, comps fetched ✓, ordinance checked ✓, projection running…). Never more than 10s of silence. Skeleton screens prefilled. |
+| **Quality threshold over output count** | If no property hits defensible thresholds (≥8% CoC, no major regulation flags, comps verifiable), we say "skip this market today" + offer alternatives. Better to surface 0 properties than rank junk. |
+| **Recommend human validation** | Every report ends with "verify before offer" checklist. We're a research assistant, not a tipster. |
 
 ## 5. Trust architecture (hardened against concern #1)
 
