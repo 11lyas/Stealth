@@ -203,22 +203,35 @@ Three pillars: **Conversion Analysis** + **Setup Roadmap** + **Performance Track
 **Reposition from "search tool" to "investment manager."** Users have reasons to come back AFTER they buy.
 
 ### v1 (week 6 launch)
-- Single-property analysis (the wedge)
-- Market search (returns all properties clearing threshold, 0 if none qualify)
-- Free PDF report (top of funnel)
-- **Saved searches + weekly email digest** (deal alerts moved into v1 — retention can't wait)
+- Conversion analysis (LTR baseline vs STR projection, side-by-side)
+- Setup roadmap (furnishing, photographer, listing copy, compliance)
+- Property profile in dashboard
+- Manual performance tracking (monthly stats input vs projection)
+- Free PDF conversion report (top of funnel)
+- Saved properties + weekly email digest
 
-### v1.5 (month 2-3)
-- **Portfolio tracker** — user enters their bought property; we benchmark monthly performance vs. comps
-- **Market pulse** — weekly email of trends in their market
-- **Refi opportunity flags** — "rates dropped, you could save $X/mo on your Gatlinburg property"
-- **Push notifications** for high-priority deal alerts (browser + email)
+### v1.5 (month 2-3) — Operations layer
+- **Active bookings dashboard** — pull from Airbnb API: upcoming check-ins, current guests, departures
+- **Auto-pull performance data** from Airbnb (revenue, occupancy, ratings) → vs projection charts
+- **AI booking updates** — "Guest checking in tomorrow at 3pm. Confirm cleaning is done by noon. Last guest's review was 4.6 — here's the suggested response."
+- **Expense tracking** — capture receipts via photo, AI categorizes (cleaning, repairs, supplies, mortgage, insurance, utilities, taxes)
+- **Profit dashboard** — gross revenue minus expenses, per property, per month
 
-### v2 (month 4-6)
-- **Tax-time bundle** — Schedule E export
-- **Renovation ROI** — "spend $30k on this, revenue +$8k/yr"
-- **Performance dashboards** — month-over-month per property
-- **AI optimization recommendations** for owned properties
+### v2 (month 4-6) — Team + CRM layer
+- **Staff/team CRM** — cleaners, photographers, handymen, co-hosts. Track contact info, services, rates, performance.
+- **Task assignment** — assign turnover to a cleaner, get confirmation back, log completion. Auto-pay them.
+- **Vendor billing & payments** — invoice/pay cleaners and contractors directly through Vesta. Track 1099s for year-end.
+- **Multi-property portfolio view** — performance, expenses, bookings across all owned properties in one dashboard
+- **AI ops assistant** — drafts guest messages, suggests review responses, handles common requests, flags anomalies (review dropping, occupancy declining, regulation changes)
+- **Tax-time bundle** — Schedule E export, expense categorization audit, depreciation schedule
+
+### v3 (month 6+) — Power user / agency
+- **Property manager mode** — manage other people's properties, separate billing per owner
+- **White-label option** for property managers to brand Vesta
+- **Mobile app** (iOS + Android) for on-the-go ops
+- **Multi-platform listings** (VRBO + Booking.com sync)
+- **Renovation ROI** — "spend $30k on kitchen, revenue +$8k/yr"
+- **Refi opportunity flags** — "rates dropped, save $X/mo on your Gatlinburg property"
 
 **Result:** users keep paying $99/mo even after their purchase, because the tool helps them MANAGE the property too.
 
@@ -439,6 +452,26 @@ v1 ships ONE feature; the architecture carries 10 features without rewrites.
 - [ ] Legal entity (sole prop or LLC)
 - [ ] Marketing site approach (Framer for marketing, Next.js for product app — likely)
 
-## 16. v2+ roadmap (NOT in v1)
+## 16. The full Vesta vision (across all versions)
 
-Portfolio tracker · Market pulse alerts · Refi opportunity flags · Tax-time export · Renovation ROI · Deal alerts push notifications · Long-term rental mode · International markets · Team/realtor seats · iOS app
+**Vesta is the operating system for a single-family STR landlord.** From "should I convert my LTR" all the way to "AI runs my Airbnb portfolio for me."
+
+```
+v1 (week 6)       Conversion analysis + setup roadmap + manual tracking
+                  ↓
+v1.5 (month 2-3)  Active bookings + AI booking updates + expense tracking + auto-pull from Airbnb
+                  ↓
+v2 (month 4-6)    Staff/team CRM + vendor billing + AI ops assistant + multi-property
+                  ↓
+v3 (month 6+)     Property manager mode + mobile app + multi-platform listings
+```
+
+Each version compounds. v1 customers stay because v1.5 unlocks active bookings + expense tracking. v1.5 customers stay because v2 adds the CRM + AI ops. v2 customers stay because v3 makes them money manageable at scale.
+
+**Pricing scales with versions:**
+- v1: $39/mo (1 prop) → $99/mo (5 prop)
+- v1.5: same tiers, more value packed in
+- v2: $99/mo → $249/mo (Team tier with billing/CRM)
+- v3: $249/mo → $499/mo (Agency tier with multi-owner)
+
+Net: customer LTV grows from $1,200 (1 year at $99) to $5,000+ as features accrete. Same customer, way bigger wallet.
