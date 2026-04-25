@@ -6,87 +6,102 @@
 <title>Vesta — Know every number before you buy</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800;900&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-  body { font-family: 'Geist', -apple-system, sans-serif; background: #fafafa; color: #0a0a0a; }
-  .mono { font-family: 'Geist Mono', monospace; }
-  .gradient-text {
-    background: linear-gradient(135deg, #10b981 0%, #059669 50%, #047857 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
+  :root {
+    --bg: #fafaf7;
+    --bg-warm: #f5f1ea;
+    --ink: #0a0a0a;
+    --ink-soft: #525252;
+    --ink-muted: #737373;
+    --line: rgba(0,0,0,0.08);
+    --accent: #d97706;
+    --accent-light: #f59e0b;
+    --accent-dark: #b45309;
+    --accent-bg: rgba(217,119,6,0.08);
   }
+  body { font-family: 'Inter', -apple-system, sans-serif; background: var(--bg); color: var(--ink); }
+  .serif { font-family: 'Instrument Serif', Georgia, serif; font-weight: 400; }
+  .mono { font-family: 'JetBrains Mono', ui-monospace, monospace; }
   .bg-hero {
     background:
-      radial-gradient(ellipse 80% 50% at 50% 0%, rgba(16,185,129,0.14) 0%, transparent 60%),
-      radial-gradient(ellipse 60% 40% at 0% 30%, rgba(34,211,238,0.10) 0%, transparent 60%),
-      linear-gradient(180deg, #f0fdfa 0%, #ffffff 100%);
+      radial-gradient(ellipse 90% 60% at 50% 0%, rgba(217,119,6,0.10) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 40% at 0% 30%, rgba(217,119,6,0.05) 0%, transparent 60%),
+      linear-gradient(180deg, var(--bg-warm) 0%, var(--bg) 60%, #ffffff 100%);
   }
-  .card { background: white; border: 1px solid rgba(0,0,0,0.06); box-shadow: 0 1px 3px rgba(0,0,0,0.04); border-radius: 16px; }
+  .card { background: white; border: 1px solid var(--line); box-shadow: 0 1px 3px rgba(0,0,0,0.03); border-radius: 16px; }
   .card-hover { transition: all 0.25s ease; cursor: pointer; }
-  .card-hover:hover { transform: translateY(-2px); box-shadow: 0 12px 30px -10px rgba(0,0,0,0.1); }
-  .product-shadow { box-shadow: 0 50px 100px -25px rgba(16,185,129,0.25), 0 25px 50px -15px rgba(0,0,0,0.12); }
+  .card-hover:hover { transform: translateY(-2px); box-shadow: 0 12px 30px -10px rgba(0,0,0,0.08); }
+  .product-shadow { box-shadow: 0 50px 100px -25px rgba(217,119,6,0.18), 0 25px 50px -15px rgba(0,0,0,0.10); }
   .btn-primary {
-    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    background: var(--ink);
     color: white;
-    box-shadow: 0 4px 16px -4px rgba(16,185,129,0.5);
     transition: all 0.2s ease;
   }
-  .btn-primary:hover { box-shadow: 0 8px 24px -4px rgba(16,185,129,0.55); transform: translateY(-1px); }
+  .btn-primary:hover { background: #1c1917; transform: translateY(-1px); box-shadow: 0 8px 24px -8px rgba(0,0,0,0.25); }
+  .btn-accent {
+    background: linear-gradient(135deg, var(--accent-light) 0%, var(--accent) 100%);
+    color: white;
+    box-shadow: 0 4px 16px -4px rgba(217,119,6,0.4);
+    transition: all 0.2s ease;
+  }
+  .btn-accent:hover { box-shadow: 0 8px 24px -4px rgba(217,119,6,0.5); transform: translateY(-1px); }
   @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
   .fade-1 { animation: fadeUp 0.7s ease-out forwards; }
   .fade-2 { animation: fadeUp 0.7s ease-out 0.15s forwards; opacity: 0; }
   .fade-3 { animation: fadeUp 0.7s ease-out 0.3s forwards; opacity: 0; }
   .fade-4 { animation: fadeUp 0.9s ease-out 0.6s forwards; opacity: 0; }
   @keyframes pulse-ring {
-    0%, 100% { box-shadow: 0 0 0 0 rgba(16,185,129,0.5); }
-    50% { box-shadow: 0 0 0 16px rgba(16,185,129,0); }
+    0%, 100% { box-shadow: 0 0 0 0 rgba(217,119,6,0.5); }
+    50% { box-shadow: 0 0 0 16px rgba(217,119,6,0); }
   }
   .pulse-ring { animation: pulse-ring 2.4s ease-in-out infinite; }
-  .chip { background: rgba(16,185,129,0.08); color: #047857; border: 1px solid rgba(16,185,129,0.16); }
+  .chip { background: var(--accent-bg); color: var(--accent-dark); border: 1px solid rgba(217,119,6,0.18); }
+  .accent-text { color: var(--accent-dark); }
 </style>
 </head>
 <body class="antialiased">
 
-<!-- Nav — minimal, single CTA -->
-<nav class="fixed top-0 left-0 right-0 z-50 backdrop-blur-xl bg-white/75 border-b border-black/5">
+<!-- Nav -->
+<nav class="fixed top-0 left-0 right-0 z-50 backdrop-blur-xl bg-white/75 border-b" style="border-color: var(--line);">
   <div class="max-w-6xl mx-auto flex items-center justify-between px-6 py-4">
     <div class="flex items-center gap-2.5">
       <svg width="32" height="32" viewBox="0 0 56 56" fill="none">
         <defs>
           <linearGradient id="logo-gradient" x1="0" y1="0" x2="56" y2="56">
-            <stop offset="0%" stop-color="#34d399"/>
-            <stop offset="50%" stop-color="#10b981"/>
-            <stop offset="100%" stop-color="#0d9488"/>
+            <stop offset="0%" stop-color="#f59e0b"/>
+            <stop offset="50%" stop-color="#d97706"/>
+            <stop offset="100%" stop-color="#b45309"/>
           </linearGradient>
         </defs>
         <rect width="56" height="56" rx="14" fill="url(#logo-gradient)"/>
         <circle cx="28" cy="14" r="3" fill="white"/>
         <path d="M14 42 L28 22 L42 42" stroke="white" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
       </svg>
-      <span class="font-semibold text-[17px] tracking-tight">Vesta</span>
+      <span class="font-semibold text-[18px] tracking-tight">Vesta</span>
     </div>
     <button class="btn-primary px-4 py-2 rounded-lg font-medium text-sm">Try it free</button>
   </div>
 </nav>
 
-<!-- HERO — passes 5-second test: ONE headline, ONE byline, ONE CTA -->
+<!-- HERO -->
 <section class="bg-hero pt-40 pb-20 px-6">
   <div class="max-w-4xl mx-auto text-center">
 
-    <h1 class="text-5xl md:text-[88px] font-semibold tracking-[-0.045em] leading-[0.98] mb-6 fade-1">
-      Know every number<br>
-      <span class="gradient-text">before you buy.</span>
+    <h1 class="text-6xl md:text-[100px] tracking-[-0.025em] leading-[0.95] mb-8 fade-1">
+      <span class="serif italic">Know</span> every number<br>
+      before you buy.
     </h1>
 
-    <p class="text-xl md:text-2xl text-neutral-500 mb-10 leading-relaxed fade-2">
+    <p class="text-xl md:text-2xl text-neutral-500 mb-10 leading-relaxed fade-2 max-w-2xl mx-auto">
       AI analyzes any rental property. <span class="text-neutral-700 font-medium">90 seconds.</span>
     </p>
 
     <div class="max-w-xl mx-auto fade-3">
       <div class="card p-2 flex items-center gap-2 bg-white shadow-lg">
-        <input type="text" placeholder="Paste any address — get a free analysis" class="flex-1 bg-transparent outline-none text-base px-4 py-3.5 placeholder-neutral-400">
-        <button class="btn-primary font-semibold px-6 py-3.5 rounded-xl whitespace-nowrap">
+        <input type="text" placeholder="Paste any address — get a free analysis" class="flex-1 bg-transparent outline-none text-base px-4 py-3.5 placeholder-neutral-400 font-medium">
+        <button class="btn-accent font-semibold px-6 py-3.5 rounded-xl whitespace-nowrap">
           Analyze →
         </button>
       </div>
@@ -95,18 +110,18 @@
   </div>
 </section>
 
-<!-- PRODUCT — show the actual product -->
+<!-- PRODUCT -->
 <section class="bg-hero pb-32 px-6">
   <div class="max-w-5xl mx-auto fade-4">
-    <div class="product-shadow rounded-2xl overflow-hidden bg-white border border-black/5">
-      <div class="bg-neutral-50 border-b border-black/5 px-5 py-3.5 flex items-center gap-3">
+    <div class="product-shadow rounded-2xl overflow-hidden bg-white border" style="border-color: var(--line);">
+      <div class="border-b px-5 py-3.5 flex items-center gap-3" style="border-color: var(--line); background: var(--bg-warm);">
         <div class="flex gap-1.5">
           <div class="w-3 h-3 rounded-full bg-red-400"></div>
           <div class="w-3 h-3 rounded-full bg-yellow-400"></div>
           <div class="w-3 h-3 rounded-full bg-green-400"></div>
         </div>
         <div class="flex-1 max-w-md mx-auto">
-          <div class="bg-white rounded-md px-3 py-1 text-xs text-neutral-500 text-center border border-black/5">vesta.ai</div>
+          <div class="bg-white rounded-md px-3 py-1 text-xs text-neutral-500 text-center border" style="border-color: var(--line);">vesta.ai</div>
         </div>
         <div class="text-xs text-neutral-400">2:34 PM</div>
       </div>
@@ -114,12 +129,14 @@
       <div class="p-8 bg-white">
         <div class="flex items-start justify-between gap-6 mb-6">
           <div class="flex-1 min-w-0">
-            <div class="text-xs text-neutral-500 mb-1">Analyzing</div>
-            <h3 class="text-xl font-semibold tracking-tight mb-1">1847 Mountain Loop Rd</h3>
+            <div class="text-xs text-neutral-500 mb-1 uppercase tracking-wider">Analyzing</div>
+            <h3 class="serif text-3xl tracking-tight mb-1">1847 Mountain Loop Rd</h3>
             <div class="text-sm text-neutral-500">Gatlinburg, TN · 3BR/2BA · 1,650 sqft · Asking $389k</div>
           </div>
           <div class="text-center flex-shrink-0">
-            <div class="w-20 h-20 rounded-2xl bg-gradient-to-br from-emerald-500 to-emerald-600 flex items-center justify-center text-white font-bold text-3xl pulse-ring">94</div>
+            <div class="w-20 h-20 rounded-2xl flex items-center justify-center text-white pulse-ring" style="background: linear-gradient(135deg, #f59e0b, #b45309);">
+              <span class="serif text-4xl">94</span>
+            </div>
             <div class="text-[10px] text-neutral-400 uppercase tracking-wider mt-2 font-semibold">AI Score</div>
           </div>
         </div>
@@ -127,28 +144,28 @@
         <div class="grid grid-cols-3 gap-3 mb-6">
           <div class="card p-4">
             <div class="text-[10px] text-neutral-400 uppercase tracking-wider mb-1">Year 1 Cash Flow</div>
-            <div class="text-2xl font-semibold mono text-emerald-600">+$38.2k</div>
+            <div class="text-2xl font-semibold mono accent-text">+$38.2k</div>
             <div class="text-xs text-neutral-500 mt-0.5">$32k–$44k range</div>
           </div>
           <div class="card p-4">
             <div class="text-[10px] text-neutral-400 uppercase tracking-wider mb-1">10-Year ROI</div>
-            <div class="text-2xl font-semibold mono text-emerald-600">+312%</div>
+            <div class="text-2xl font-semibold mono accent-text">+312%</div>
             <div class="text-xs text-neutral-500 mt-0.5">$512k cumulative</div>
           </div>
           <div class="card p-4">
             <div class="text-[10px] text-neutral-400 uppercase tracking-wider mb-1">Cash-on-Cash</div>
-            <div class="text-2xl font-semibold mono text-emerald-600">14.2%</div>
+            <div class="text-2xl font-semibold mono accent-text">14.2%</div>
             <div class="text-xs text-neutral-500 mt-0.5">Above 10% target</div>
           </div>
         </div>
 
-        <div class="bg-emerald-50 border border-emerald-100 rounded-xl p-4 mb-6">
+        <div class="rounded-xl p-4 mb-6 border" style="background: var(--accent-bg); border-color: rgba(217,119,6,0.18);">
           <div class="flex items-start gap-3">
-            <div class="w-6 h-6 rounded-md bg-emerald-500 flex items-center justify-center flex-shrink-0 mt-0.5">
+            <div class="w-6 h-6 rounded-md flex items-center justify-center flex-shrink-0 mt-0.5" style="background: var(--accent);">
               <svg class="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v2.07a7 7 0 014.93 4.93H18a1 1 0 110 2h-2.07a7 7 0 01-4.93 4.93V18a1 1 0 11-2 0v-2.07a7 7 0 01-4.93-4.93H2a1 1 0 110-2h2.07A7 7 0 019 5.07V3a1 1 0 011-1z"/></svg>
             </div>
             <div>
-              <div class="text-[10px] font-semibold text-emerald-700 uppercase tracking-wide mb-1">Why this scored 94</div>
+              <div class="text-[10px] font-semibold uppercase tracking-wide mb-1 accent-text">Why this scored 94</div>
               <p class="text-sm text-neutral-700 leading-relaxed">
                 Priced $14k below comps. No HOA. 8 similar cabins within 2mi earning $52k–$64k/yr. Strong cabin market — Gatlinburg occupancy at 72% (24-mo avg).
               </p>
@@ -159,64 +176,70 @@
 
         <div class="text-[10px] font-semibold text-neutral-400 uppercase tracking-wider mb-2">Verify before offer</div>
         <div class="flex flex-wrap gap-2">
-          <span class="text-xs bg-amber-50 border border-amber-100 text-amber-700 px-2.5 py-1 rounded-md">⚠ Confirm STR ordinance with city</span>
-          <span class="text-xs bg-neutral-50 border border-black/5 text-neutral-600 px-2.5 py-1 rounded-md">Get inspection</span>
-          <span class="text-xs bg-neutral-50 border border-black/5 text-neutral-600 px-2.5 py-1 rounded-md">Verify roof age</span>
+          <span class="text-xs bg-amber-50 border border-amber-200 text-amber-800 px-2.5 py-1 rounded-md">⚠ Confirm STR ordinance with city</span>
+          <span class="text-xs bg-neutral-50 border text-neutral-600 px-2.5 py-1 rounded-md" style="border-color: var(--line);">Get inspection</span>
+          <span class="text-xs bg-neutral-50 border text-neutral-600 px-2.5 py-1 rounded-md" style="border-color: var(--line);">Verify roof age</span>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- HOW IT WORKS — small + clear, doesn't compete with hero -->
-<section class="max-w-5xl mx-auto px-6 py-20 border-t border-black/5">
+<!-- HOW IT WORKS -->
+<section class="max-w-5xl mx-auto px-6 py-20 border-t" style="border-color: var(--line);">
   <div class="text-center mb-12">
     <div class="text-xs uppercase tracking-widest text-neutral-400 mb-3 mono">How it works</div>
-    <h2 class="text-3xl md:text-4xl font-semibold tracking-[-0.03em]">Three steps. Ninety seconds.</h2>
+    <h2 class="serif text-5xl md:text-6xl tracking-[-0.02em]">Three steps. <span class="italic">Ninety seconds.</span></h2>
   </div>
   <div class="grid md:grid-cols-3 gap-4">
-    <div class="card card-hover p-6">
-      <div class="text-emerald-600 mono font-bold text-sm mb-3">01</div>
-      <h3 class="font-semibold mb-1">Paste an address</h3>
+    <div class="card card-hover p-7">
+      <div class="mono font-bold text-sm mb-3 accent-text">01</div>
+      <h3 class="font-semibold mb-1 text-lg">Paste an address</h3>
       <p class="text-sm text-neutral-500">Or describe a market — e.g., "cabins under $500k in Gatlinburg."</p>
     </div>
-    <div class="card card-hover p-6">
-      <div class="text-emerald-600 mono font-bold text-sm mb-3">02</div>
-      <h3 class="font-semibold mb-1">AI runs the math</h3>
+    <div class="card card-hover p-7">
+      <div class="mono font-bold text-sm mb-3 accent-text">02</div>
+      <h3 class="font-semibold mb-1 text-lg">AI runs the math</h3>
       <p class="text-sm text-neutral-500">Comps, 10-year cash flow, regulation risk — with sources cited.</p>
     </div>
-    <div class="card card-hover p-6">
-      <div class="text-emerald-600 mono font-bold text-sm mb-3">03</div>
-      <h3 class="font-semibold mb-1">Get the answer</h3>
+    <div class="card card-hover p-7">
+      <div class="mono font-bold text-sm mb-3 accent-text">03</div>
+      <h3 class="font-semibold mb-1 text-lg">Get the answer</h3>
       <p class="text-sm text-neutral-500">Score, reasoning, red flags. Free PDF or save to your account.</p>
     </div>
   </div>
 </section>
 
-<!-- PRICING — minimal -->
-<section class="max-w-3xl mx-auto px-6 py-20 border-t border-black/5">
+<!-- PRICING -->
+<section class="max-w-3xl mx-auto px-6 py-20 border-t" style="border-color: var(--line);">
   <div class="text-center mb-12">
     <div class="text-xs uppercase tracking-widest text-neutral-400 mb-3 mono">Pricing</div>
-    <h2 class="text-3xl md:text-4xl font-semibold tracking-[-0.03em]">Free to try. $39 to use it daily.</h2>
+    <h2 class="serif text-5xl md:text-6xl tracking-[-0.02em]">Free to try. <span class="italic">$39 to use it daily.</span></h2>
   </div>
   <div class="grid md:grid-cols-3 gap-4">
     <div class="card p-6">
       <div class="text-xs uppercase tracking-wider text-neutral-500 mb-2 font-semibold">Free</div>
-      <div class="text-3xl font-semibold tracking-tighter mb-1">$0</div>
+      <div class="serif text-5xl tracking-tight mb-1">$0</div>
       <div class="text-xs text-neutral-500 mb-4">1 free analysis · No signup</div>
-      <button class="w-full bg-white border border-black/15 text-black font-medium py-2 rounded-lg text-sm hover:bg-neutral-50 transition">Try free</button>
+      <button class="w-full bg-white border text-black font-medium py-2 rounded-lg text-sm hover:bg-neutral-50 transition" style="border-color: rgba(0,0,0,0.15);">Try free</button>
     </div>
     <div class="card p-6">
       <div class="text-xs uppercase tracking-wider text-neutral-500 mb-2 font-semibold">Starter</div>
-      <div class="text-3xl font-semibold tracking-tighter mb-1">$39<span class="text-lg text-neutral-500 font-normal">/mo</span></div>
+      <div class="flex items-baseline gap-1 mb-1">
+        <span class="serif text-5xl tracking-tight">$39</span>
+        <span class="text-base text-neutral-500">/mo</span>
+      </div>
       <div class="text-xs text-neutral-500 mb-4">10 analyses/mo · Saved searches</div>
-      <button class="w-full bg-white border border-black/15 text-black font-medium py-2 rounded-lg text-sm hover:bg-neutral-50 transition">Start free trial</button>
+      <button class="w-full bg-white border text-black font-medium py-2 rounded-lg text-sm hover:bg-neutral-50 transition" style="border-color: rgba(0,0,0,0.15);">Start free trial</button>
     </div>
-    <div class="rounded-2xl p-6 text-white shadow-lg" style="background: linear-gradient(135deg, #10b981 0%, #0d9488 100%);">
-      <div class="text-xs uppercase tracking-wider text-emerald-100 mb-2 font-semibold">Pro</div>
-      <div class="text-3xl font-semibold tracking-tighter mb-1">$99<span class="text-lg text-emerald-100 font-normal">/mo</span></div>
-      <div class="text-xs text-emerald-100 mb-4">200 analyses · Deal alerts · Priority</div>
-      <button class="w-full bg-white text-emerald-700 font-medium py-2 rounded-lg text-sm hover:bg-emerald-50 transition">Start free trial</button>
+    <div class="rounded-2xl p-6 text-white shadow-lg" style="background: linear-gradient(135deg, #1c1917 0%, #0a0a0a 100%);">
+      <div class="text-xs uppercase tracking-wider text-amber-200 mb-2 font-semibold">Pro</div>
+      <div class="flex items-baseline gap-1 mb-1">
+        <span class="serif text-5xl tracking-tight">$99</span>
+        <span class="text-base text-neutral-400">/mo</span>
+      </div>
+      <div class="text-xs text-neutral-400 mb-4">200 analyses · Deal alerts · Priority</div>
+      <button class="w-full btn-accent font-medium py-2 rounded-lg text-sm">Start free trial</button>
     </div>
   </div>
   <p class="text-center text-xs text-neutral-500 mt-6">14-day free trial · 30-day money-back · Cancel anytime</p>
@@ -224,21 +247,23 @@
 
 <!-- Final CTA -->
 <section class="max-w-3xl mx-auto px-6 py-20">
-  <div class="card p-12 text-center" style="background: linear-gradient(135deg, #0a0a0a 0%, #171717 100%);">
-    <h2 class="text-4xl md:text-5xl font-semibold tracking-[-0.03em] text-white mb-3">Try it on a real address.</h2>
-    <p class="text-neutral-400 mb-8">Free PDF report. No signup. 90 seconds.</p>
-    <button class="btn-primary px-8 py-3.5 rounded-xl text-base font-semibold">
+  <div class="card p-14 text-center" style="background: linear-gradient(135deg, #0a0a0a 0%, #1c1917 100%);">
+    <h2 class="serif text-5xl md:text-6xl tracking-[-0.02em] text-white mb-3">
+      Try it on a <span class="italic">real address.</span>
+    </h2>
+    <p class="text-neutral-400 mb-8 text-lg">Free PDF report. No signup. 90 seconds.</p>
+    <button class="btn-accent px-8 py-3.5 rounded-xl text-base font-semibold">
       Analyze a property →
     </button>
   </div>
 </section>
 
 <!-- Footer -->
-<footer class="border-t border-black/5 py-8 px-6 bg-white">
+<footer class="border-t py-8 px-6 bg-white" style="border-color: var(--line);">
   <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between text-sm text-neutral-500 gap-4">
     <div class="flex items-center gap-2">
       <svg width="20" height="20" viewBox="0 0 56 56" fill="none">
-        <rect width="56" height="56" rx="14" fill="#10b981"/>
+        <rect width="56" height="56" rx="14" fill="#d97706"/>
         <circle cx="28" cy="14" r="3" fill="white"/>
         <path d="M14 42 L28 22 L42 42" stroke="white" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
       </svg>
