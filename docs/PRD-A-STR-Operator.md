@@ -1,6 +1,6 @@
-# PRD — Vesta · LTR → STR Conversion Platform
+# PRD — Vesta · The Operating Layer for LTR → STR Conversion
 
-**Status:** Scoped v1.0 · MAJOR PIVOT — positioned for existing landlords converting to STR, not first-time buyers
+**Status:** Scoped v1.2 · Positioning hardened against Reddit feedback (saturation, moat, customer segment lock)
 **Working name:** Vesta (locked)
 **Platform:** Web SaaS (iOS app planned for v3+)
 **Target ship:** 5 weeks to first paying customer
@@ -9,11 +9,9 @@
 
 ## 1. One-liner
 
-**"Should you convert your rental to an Airbnb? Vesta tells you with real data — and helps you run it after."**
+> **"You own a long-term rental. You've thought about turning it into an Airbnb but the math is fuzzy and the setup is overwhelming. Vesta runs your specific numbers, gives you a step-by-step playbook to convert, and tracks performance after — so you stop wondering if you're leaving money on the table."**
 
-Vesta is the platform for long-term rental landlords who are sitting on a property and want to know if converting to a short-term rental (Airbnb, VRBO) would make them more money. We provide the conversion decision (backed by real comp data + 10-year projections + regulation risk) AND the operational systems to set up and track the property once they pull the trigger.
-
-**Single property in. Decision out. Setup + tracking included.**
+Vesta serves the **transition** — the moment a long-term landlord becomes a short-term operator. No tool currently owns this segment. AirDNA doesn't market to LTR landlords. Hostaway assumes you already run STRs. Stessa is LTR-only. The gap is real and defensible.
 
 ## 2. The bottleneck
 
@@ -53,6 +51,54 @@ Three concrete promises:
 3. **Operational tracking** — once live, track real performance vs. projection. Flag underperformance, alert on regulation changes, surface optimization opportunities
 
 **The full LTR → STR journey, end-to-end. Not just "will it work" — also "how to do it" and "how it's actually doing."**
+
+## 4.5. Defensible moat (six sources)
+
+In order of strength:
+
+### 1. Conversion-specific underwriting model
+Every existing calculator (BiggerPockets, AirDNA Rentalizer) is built for **buyers**. Conversion math is fundamentally different — no closing costs, current rent IS opportunity cost baseline, existing depreciation continues, tenant transition costs, tax treatment shifts (Schedule E → STR rules, cost segregation eligibility). Nobody's built this model because nobody's built for this customer.
+
+### 2. Performance-vs-projection accountability loop
+When a user converts based on our analysis, we track actual performance forever. AirDNA never knows if their predictions came true. We do. **Over 18-24 months, our projections become measurably more accurate because we have ground truth.** That's a compounding data moat incumbents can't catch up to.
+
+### 3. Curated vendor marketplace per market
+Landlords don't know which photographer, cleaner, dynamic-pricing tool, STR-friendly insurance broker exists in their city. Curated rec list per market is a network effect — more users → more vendor data → more accurate recs. Hospitable doesn't curate locally. AirDNA doesn't touch ops. We sit in the middle.
+
+### 4. Regulation depth
+Quarterly paralegal-curated regs by category (allowed at all? days allowed? ADU eligibility? permit? taxes? business license? distance-from-other-STRs? HOA bylaws?). News API monitoring. Pushed alerts to affected owners. **Genuinely hard work — that's why no incumbent does it well.**
+
+### 5. The operational playbook
+Robuilt sells a $2k course on "how to convert your rental to Airbnb." STR Ron sells $1.5k. People pay because the operational knowledge is scattered across YouTube, Reddit, Facebook groups. Vesta compresses that into a software workflow.
+
+### 6. No conflict of interest
+We don't sell properties. Don't take Airbnb commissions. Don't get kickbacks from PMS vendors. Pure SaaS aligned with the customer's outcome. Most STR "experts" are getting paid by someone other than the user. We're not — that's a trust positioning advantage worth saying out loud.
+
+## 4.6. Competitive landscape (honest)
+
+The space IS saturated. We don't win by claiming blue ocean. We win by serving a customer segment nobody else focuses on.
+
+| Tool | Customer segment | Our overlap |
+|---|---|---|
+| AirDNA | STR market analysts + investors | Data tier — we use them, don't compete |
+| Mashvisor | Real estate investors hunting STRs | Our buyers persona was their territory — we're not pursuing |
+| BiggerPockets calc | DIY underwriting, all property types | Generic, not LTR→STR specific |
+| Stessa | LTR portfolio tracking | Doesn't touch STR side |
+| Hostaway / Hospitable / Guesty | Already-running STR operators | Where we expand to in v2 |
+| Robuilt / STR Ron courses | Paid education | We're software-replacement |
+| striq.com / PainMap / InveSTR.us | Various STR analytics tools | Same data game we're not playing |
+
+**Our segment:** the LTR landlord considering STR. None of the above is built for this person.
+
+## 4.7. Marketing rules — what we say, what we don't
+
+| ❌ Stop saying | ✅ Lead with |
+|---|---|
+| "Better than AirDNA on data" | "Built for landlords, not house hunters" |
+| "AI for STR investors" (too generic) | "Should you turn your rental into an Airbnb?" |
+| "Find the best property" | "From long-term to short-term, end-to-end" |
+| "Top 5 deals" | "Run your specific property's specific numbers" |
+| "Real-time market intelligence" | "We track our projections vs. reality so we get more accurate every month" |
 
 ## 4.5. UX principles (non-negotiable)
 
